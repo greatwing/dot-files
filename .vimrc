@@ -1,3 +1,33 @@
+" Ok, Hey There! 
+" You want your vim to be up and ready ,Right?
+" So , Here's the to do list for you:
+" 1) if you're working with gnome terminal , get this solarized gnome theme
+" 	from here :
+" 	https://github.com/Anthony25/gnome-terminal-colors-solarized.git
+" 	just git clone -> ./install.sh
+" 2) install Powerline symbols (you want your statusline to look cool ,Eh?):
+" 	clone https://github.com/powerline/fonts.git -> ./fonts ->./install.sh
+" 3) git vundle(Plugin Manager) : git clone
+" 	https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim	
+" 4) run :PluginInstall , Now You want a working word completion right?
+" 5) get into ~/.vim/YouCompleteMe -> run python install.py !!!
+" 6) DONE!
+"
+" Notes: 
+" 	* ESC key is binded into j-k strike  
+" 	* Do not install airline + powerline symbols if you're working on a
+" 		Plastic computer(it will slow Vim -> slower workflow).
+" 	* Snips - Ctrl J for instat snip selection (it selects the first one)
+" 	* Ctrl-P - Jump between files .
+" 	* Ctrl-N - Jump between directories and files.
+" 	* Ctrl-X - Tag jump - Ctrl-N/P(to navigate) -> Enter to jump
+"	* Copy Ultisnaps dir to .vim for more Cool snips! 	
+"	Make sure to change inside the Ultisnaps your name&email ,
+"	I may change it (pretty soon) with script that reads
+"	those parameters from git.
+" 	Created By: greatwing @ github/greatwing @ mor.zusmann@gmail.com
+"
+"
 set nocompatible              " be iMproved, required
 filetype off                  " required
 if !has('gui_running')
@@ -14,12 +44,10 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-
 """"""""""""""""""""""""""""""""""""'''
-let g:airline_theme='molokai'
+let g:airline_theme='solarized'
 
 let g:airline_powerline_fonts = 1
-
 " Enable syntastic integration
 let g:airline#extensions#syntastic#enabled = 1
 
@@ -119,16 +147,18 @@ Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-repeat'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Raimondi/delimitMate'
-Plugin 'tomasr/molokai'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'godlygeek/tabular'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'altercation/vim-colors-solarized'
 call vundle#end()            " required
+
 filetype plugin indent on    " required
 " --------------------------------
 nnoremap Q <Nop>
 
-
+map <Leader> <Plug>(easymotion-prefix)
 
 
 inoremap jk <Esc>
@@ -154,49 +184,21 @@ set noerrorbells
 set visualbell
 set t_vb=
 
-" Set line numbering on left
-set number
 
 " Set position indicator on bottom right
 set ruler
 
 " Highlight current line in number side
 " set cursorline
-
+set number
 " Show command in last line, usually on by default
 set showcmd
 
 " Minimum number of lines that will always be above/below cursor
 set scrolloff=10
-set background=dark
-try
-  if &diff && (has('gui_running') || &t_Co > 255)
-    colorscheme jellybeans
-  elseif has('gui_running') || &t_Co > 255
-    colorscheme molokai
-    " Molokai CursorLine isn't bright enough
-    hi CursorLine  ctermbg=236
-  else
-    colorscheme gruvbox
-  endif
-catch
-  colorscheme desert
-endtry
-syntax on
-
-highlight ColorColumn ctermbg=238
-function! s:match_col_no()
-  let col_no = exists('b:match_column_no') ? b:match_column_no : 100
-  call matchadd('ColorColumn', '\%' . col_no . 'v', 100)
-endfunction
-" Set font when using gui version
-if has('gui_running')
-  if has('gui_gtk2')
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 10
-  elseif has('gui_win32')
-    set guifont=DejaVu_Sans_Mono_for_Powerline:h10:cANSI
-  endif
-endif
-
+syntax enable
+set background=light
+colorscheme solarized
+  
 set autoindent
 
