@@ -40,7 +40,6 @@
 " 	Created By: greatwing @ github/greatwing @ mor.zusmann@gmail.com
 "
 "
-" set spell
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -50,20 +49,20 @@ endif
 " set the runtime path to include Vundle and initialize
 " syntastic settings - 
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
 
 """"""""""""""""""""""""""""""""""""'''
 let g:airline_theme='gruvbox'
 
 let g:airline_powerline_fonts = 1
 " Enable syntastic integration
-let g:airline#extensions#syntastic#enabled = 1
+" let g:airline#extensions#syntastic#enabled = 1
 
 let g:airline#extensions#tagbar#enabled = 1
 " Enable a smart tab top
@@ -178,10 +177,12 @@ Plugin 'tpope/vim-repeat'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-commentary'
+" Plugin 'flazz/vim-colorschemes'
+" Plugin 'tomasr/molokai'
 Plugin 'Raimondi/delimitMate'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 call vundle#end()            " required
 filetype plugin on
 filetype plugin indent on    " required
@@ -217,7 +218,8 @@ set t_vb=
 
 " Set position indicator on bottom right
 set ruler
-
+" Set spell checking
+set spell
 " Highlight current line in number side
 " set cursorline
 set number
@@ -226,9 +228,12 @@ set showcmd
 
 " Minimum number of lines that will always be above/below cursor
 set scrolloff=10
+" Syntax checkgin' enabled 
 syntax enable
-set background=dark
+" colorscheme specfications
+set background=light
 colorscheme gruvbox
+" auto indent and avoiding annoying stuff
 set hidden  
 set autoindent
 set wildmenu
@@ -246,7 +251,7 @@ set autoread
 noremap <silent> <C-F9>  :vertical resize -10<CR>
 noremap <silent> <C-F10> :resize +10<CR>
 noremap <silent> <C-F11> :resize -10<CR>
-noremap <silent> <C-F12> :vertical resize +10<CR>
+noremap <silent> <C-F12> :vertical resize -10<CR>
 
 
 " System default for mappings is now the "," character
@@ -259,18 +264,20 @@ nmap <leader>gw :Gwrite<cr>
 nmap <leader>gr :Gread<cr>
 nmap <leader>gp :Gpush<CR>
 
-nmap <leader>vs :VimShell<cr>
+nmap <leader>vs :VimShellPop<cr>
 nmap <leader>sp :vsp<cr>
-
+" GundoToggle will be open for ,,gu
 nmap <leader>gu :GundoToggle<CR>
-
+" :w and :wq is solved with ,,/q
 nmap <leader><leader> :w<CR>
-
+nmap <leader><leader>q :wq<CR>
+" ,tt will lead to Tagbar
 nmap <leader>tt :TagbarOpenAutoClose<CR>
-" Tagbar config
+" Tagbar configuration
 let g:tagbar_left=1
-
-
-
+" Tell gundo to close after a revert
+let g:gundo_close_on_revert=1
+" Laziness
+nnoremap ; :
 
 
