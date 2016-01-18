@@ -1,6 +1,4 @@
-"Ok, Hey There! 
-" 	You want your Vim to be up and ready ,Right?
-" 	So , Here's the to do list for you:
+"Hey There! 
 " Requirements:
 "
 "	*Make sure that you have installed: 
@@ -51,6 +49,10 @@ filetype off                  " required
 if !has('gui_running')	"set Terminal Vim to 256 colors
 	  set t_Co=256
 endif
+" System default for mappings is now the "," character
+
+let mapleader = ","
+let maplocalleader = ","
 
 """""""""""""""""""""""""""""""""""""
 let g:airline_theme='gruvbox'
@@ -89,12 +91,20 @@ let g:cpp_class_scope_highlight = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion=1
-"""""""""""""""""""""""""""""""""""""
+if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex = [
+			\ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*,?)*',
+			\ 're!\\includegraphics([^]]*])?{[^}]*',
+			\ 're!\\(include|input){[^}]*'
+			\ ]
+  """""""""""""""""""""""""""""""""""""
 set relativenumber
 
 """""""""""""""""""""""""""""""""""""
 
-" Vundle settings -------------
+ " Vundle settings -------------
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
 Plugin 'Shougo/vimproc.vim'
@@ -113,6 +123,7 @@ Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'SirVer/ultisnips'
 Plugin 'tpope/vim-repeat'
+Plugin 'lervag/vimtex'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-commentary'
@@ -123,7 +134,6 @@ call vundle#end()            " required
 filetype plugin on
 filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""
-
 nnoremap Q <Nop>
 vnoremap i  <Esc>
 imap jj <esc>
@@ -148,7 +158,9 @@ set t_vb=
 " Set position indicator on bottom right
 set ruler
 " Set spell checking
-set spell
+" Disables cuz it's makes some bugs with Ultisnips , enable it only on plain
+" text editing
+" set spell
 " Highlight current line in number side
 " set cursorline
 set number
@@ -161,7 +173,7 @@ set scrolloff=10
  " Syntax checkgin' enabled 
 syntax enable
 " colorscheme specfications
-set background=light
+set background=dark
 colorscheme gruvbox
 """""""""""""""""""""""""""""""""""""
  
@@ -189,9 +201,6 @@ noremap <silent> <C-F12> :vertical resize -10<CR>
  """""""""""""""""""""""""""""""""""""
 
 
-" System default for mappings is now the "," character
-let mapleader = ","
-
 " Remap for fugitive commands
 nmap <leader>gs :Gstatus<cr>
 nmap <leader>ge :Gedit<cr>
@@ -204,9 +213,6 @@ nmap <leader>vs :VimShellPop<cr>
 nmap <leader>sp :vsp<cr>
 " GundoToggle will be open for ,,gu
 nmap <leader>gu :GundoToggle<CR>
-" :w and :wq is solved with ,,/q
-nmap <leader><leader> :w<CR>
-nmap <leader><leader>q :wq<CR>
 """"""""""""""""""""""""""""""""""""""
  " Tagbar configuration
 let g:tagbar_left=1
@@ -219,4 +225,19 @@ nnoremap ; :
 nmap <leader>t :TagbarOpenAutoClose<CR>
 nmap <leader>n :NERDTreeToggle<CR>
 """"""""""""""""""""""""""""""""""""""
+
+set ttyfast
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+" Highlight current line
+set cursorline
+" Show “invisible” characters
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+set list
+" Enable mouse in all modes
+set mouse=a
+" Don’t reset cursor to start of line when moving around.
+set nostartofline
+let g:vimtex_complete_enable =0
+
 
