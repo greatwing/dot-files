@@ -1,4 +1,4 @@
-"Hey There! 
+" Hey There! 
 " Requirements:
 "
 "	*Make sure that you have installed: 
@@ -47,22 +47,23 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 if !has('gui_running')	"set Terminal Vim to 256 colors
-	  set t_Co=256
+	set t_Co=256
 endif
 " System default for mappings is now the "," character
-
+let g:showtabline = 2
 let mapleader = ","
 let maplocalleader = ","
 
 """""""""""""""""""""""""""""""""""""
-let g:airline_theme='gruvbox'
+" let g:airline_theme='gruvbox'
 
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 
-let g:airline#extensions#tagbar#enabled = 1
+  " let g:airline#extensions#bufferline#enabled = 1
+" let g:airline#extensions#tagbar#enabled = 1
 
-let g:airline#extensions#branch#enabled = 1
-set laststatus=2
+" let g:airline#extensions#branch#enabled = 1
+ set laststatus=2
 """"""""""""""""""""""""""""""""""""
 let g:UltiSnipsJumpForwardTrigger  = '<C-J>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
@@ -92,23 +93,22 @@ let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion=1
 if !exists('g:ycm_semantic_triggers')
-    let g:ycm_semantic_triggers = {}
+	let g:ycm_semantic_triggers = {}
 endif
 let g:ycm_semantic_triggers.tex = [
 			\ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*,?)*',
 			\ 're!\\includegraphics([^]]*])?{[^}]*',
 			\ 're!\\(include|input){[^}]*'
 			\ ]
-  """""""""""""""""""""""""""""""""""""
-set relativenumber
+"""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
 
- " Vundle settings -------------
+" Vundle settings -------------
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
 Plugin 'Shougo/vimproc.vim'
-Plugin 'bling/vim-airline'
+" Plugin 'bling/vim-airline'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Shougo/vimshell.vim'
 Plugin 'tpope/vim-fugitive'
@@ -137,6 +137,7 @@ filetype plugin indent on    " required
 nnoremap Q <Nop>
 vnoremap i  <Esc>
 imap jj <esc>
+vmap jj <esc> 
 cmap jj <esc>
 """""""""""""""""""""""""""""""""""""
 
@@ -170,35 +171,23 @@ set showcmd
 " Minimum number of lines that will always be above/below cursor
 set scrolloff=10
 """"""""""""""""""""""""""""""""""""""
- " Syntax checkgin' enabled 
+" Syntax checkgin' enabled 
 syntax enable
 " colorscheme specfications
 set background=dark
 colorscheme gruvbox
 """""""""""""""""""""""""""""""""""""
- 
+
 " auto indent and avoiding annoying stuff
 "
-set hidden  
-set autoindent
-set wildmenu
-set smartindent 
 
-" Enable search Highlight
-set hlsearch
-
-" Incrementally match the search
-set incsearch
-
-" Automatically read a file that has changed on disk
-set autoread
 """""""""""""""""""""""""""""""""""""
- 
+
 noremap <silent> <C-F9>  :vertical resize -10<CR>
 noremap <silent> <C-F10> :resize +10<CR>
 noremap <silent> <C-F11> :resize -10<CR>
 noremap <silent> <C-F12> :vertical resize -10<CR>
- """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
 
 
 " Remap for fugitive commands
@@ -212,16 +201,17 @@ nmap <leader>gp :Gpush<CR>
 nmap <leader>vs :VimShellPop<cr>
 nmap <leader>sp :vsp<cr>
 " GundoToggle will be open for ,,gu
-nmap <leader>gu :GundoToggle<CR>
 """"""""""""""""""""""""""""""""""""""
- " Tagbar configuration
+" Tagbar configuration
 let g:tagbar_left=1
 " Tell gundo to close after a revert
 let g:gundo_close_on_revert=1
 """"""""""""""""""""""""""""""""""""""
+map <Leader> <Plug>(easymotion-prefix)
 " Laziness
 nnoremap ; :
 
+nmap <leader>g :GundoToggle<CR>
 nmap <leader>t :TagbarOpenAutoClose<CR>
 nmap <leader>n :NERDTreeToggle<CR>
 """"""""""""""""""""""""""""""""""""""
@@ -231,6 +221,11 @@ set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 " Highlight current line
 set cursorline
+set showmatch
+set nowrap
+set smarttab
+set ignorecase smartcase
+
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
@@ -239,5 +234,33 @@ set mouse=a
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
 let g:vimtex_complete_enable =0
+set lazyredraw " Don't redraw screen when running macros.
+set hidden  
+set autoindent
+set wildmenu
 
+" Enable search Highlight
+set hlsearch
 
+" Incrementally match the search
+set incsearch
+
+" Automatically read a file that has changed on disk
+set autoread
+
+set relativenumber
+
+command! Q q " Bind :Q to :q
+command! Qall qall
+command! QA qall
+command! E e
+command! W w
+command! Wq wq
+
+set timeoutlen=500
+
+map <Leader>cu :Tabularize /\|<CR>
+nmap <Leader>pi :source ~/.vimrc<cr>:PluginInstall<cr>
+
+map <C-s> <esc>:w<CR>
+imap <C-s> <esc>:w<CR>
