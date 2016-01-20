@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/s1rmustang/.oh-my-zsh
+  export ZSH=/$HOME/.oh-my-zsh
 
 # in order to install tldr :
 # mkdir -p ~/bin
@@ -64,7 +64,7 @@ plugins=(git colored-man-pages colorize cp extract web-search nyan rand-quote)
 
 # User configuration
 
-export PATH="/home/s1rmustang/bin:/home/s1rmustang/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh

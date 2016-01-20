@@ -1,27 +1,5 @@
 " Hey There! 
-" Requirements:
-"
-"	*Make sure that you have installed: 
-"	 	- sudo apt-get install build-essential cmake
-" 		- sudo apt-get install python-dev
-" 		- sudo apt-get install ctags
-"
-"
-" 1) Clone vundle(Plugin Manager) : 
-"	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
-" 2) Install Powerline symbols (You want your status line to look cool ):
-" 	git clone https://github.com/powerline/fonts.git -> ./fonts ->./install.sh
-"	
-" 3) Run :PluginInstall , Now You want a working word completion right?
-" 
-" 4) Get into ~/.vim/YouCompleteMe -> run ./install.py --clang-completer
-" 	(for C++ semantic completion and many more)!!!
-"
-" 5) Run :VimProcInstall , now you have Vim shell , run it by :VimShell.
-"
-" 6) DONE!
-"
 " Notes: 
 " 	* ESC key is binded into j-j strike  
 " 	* Do not install airline + powerline symbols if you're working on a
@@ -107,28 +85,48 @@ let g:ycm_semantic_triggers.tex = [
 " Vundle settings -------------
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
+"Interactive shell
 Plugin 'Shougo/vimproc.vim'
 " Plugin 'bling/vim-airline'
+" Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
+"Uses vimproc to make a shell page inside vim
 Plugin 'Shougo/vimshell.vim'
+"Git pluging - see notes
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" CPP hl
 Plugin 'octol/vim-cpp-enhanced-highlight'
+" Alignment plugin
 Plugin 'godlygeek/tabular'
+" FileExplorer for vim
 Plugin 'scrooloose/nerdtree'
+" Markdown plugin for vim
 Plugin 'plasticboy/vim-markdown'
+" colorscheme
 Plugin 'morhetz/gruvbox'
+" Undo tree - very useful
 Plugin 'sjl/gundo.vim'
+" Surround plugin , see notes
 Plugin 'tpope/vim-surround'
+" Powerfull snippets plugin
 Plugin 'SirVer/ultisnips'
+" Enable us to repeat alot of things with '.'
 Plugin 'tpope/vim-repeat'
-Plugin 'lervag/vimtex'
+" Optinal - vimtex - Latex plugin for vim , see thier page for details
+" Plugin 'lervag/vimtex'
+" Best autocomplete engine for vim 
 Plugin 'Valloric/YouCompleteMe'
+" Snippets collection for vim
 Plugin 'honza/vim-snippets'
+" Comments plugin see notes.
 Plugin 'tpope/vim-commentary'
+" Automatically completes brackets
 Plugin 'Raimondi/delimitMate'
+" Fuzzy file finder
 Plugin 'kien/ctrlp.vim'
+" Function finder
 Plugin 'majutsushi/tagbar'
 call vundle#end()            " required
 filetype plugin on
