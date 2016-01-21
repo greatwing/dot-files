@@ -1,9 +1,9 @@
 #!/bin/sh
-apt-get install git curl vim zsh
-apt-get install build-essential cmake
-apt-get install make gcc
-apt-get install python-dev
-apt-get install ctags
+apt-get install -y curl vim zsh
+apt-get install -y build-essential cmake
+apt-get install -y make gcc
+apt-get install -y python-dev
+apt-get install -y ctags
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 git clone https://github.com/powerline/fonts.git 
 $HOME/fonts/install.sh
