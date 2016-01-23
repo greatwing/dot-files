@@ -31,18 +31,8 @@ endif
 let g:showtabline = 2
 let mapleader = ","
 let maplocalleader = ","
-
 """""""""""""""""""""""""""""""""""""
-" let g:airline_theme='gruvbox'
-
-" let g:airline_powerline_fonts = 1
-
-  " let g:airline#extensions#bufferline#enabled = 1
-" let g:airline#extensions#tagbar#enabled = 1
-
-" let g:airline#extensions#branch#enabled = 1
  set laststatus=2
-""""""""""""""""""""""""""""""""""""
 let g:UltiSnipsJumpForwardTrigger  = '<C-J>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 let g:UltiSnipsExpandTrigger       = '<C-J>'
@@ -50,10 +40,7 @@ let g:UltiSnipsListSnippets        = '<C-L>'
 
 """"""""""""""""""""""""""""""""""""
 " VimShell
-let g:vimshell_user_prompt = 'fnamemodify(getcwd(), ":~")'
-
-" Show hidden files by default
-let g:NERDTreeShowHidden = 1
+let g:NERDTreeShowHidden = 0
 
 " Don't need window after selecting file
 let g:NERDTreeQuitOnOpen = 1
@@ -65,8 +52,6 @@ let g:NERDTreeWinSize = 40
 let g:cpp_class_scope_highlight = 1
 
 """""""""""""""""""""""""""""""""""""
-
-
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -79,23 +64,19 @@ let g:ycm_semantic_triggers.tex = [
 			\ 're!\\(include|input){[^}]*'
 			\ ]
 """""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-
-" Vundle settings -------------
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
 "Interactive shell
-Plugin 'Shougo/vimproc.vim'
+" Plugin 'Shougo/vimproc.vim'
 " Plugin 'bling/vim-airline'
 " Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
 "Uses vimproc to make a shell page inside vim
-Plugin 'Shougo/vimshell.vim'
+" Plugin 'Shougo/vimshell.vim'
 "Git pluging - see notes
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " CPP hl
 Plugin 'octol/vim-cpp-enhanced-highlight'
 " Alignment plugin
@@ -132,40 +113,22 @@ call vundle#end()            " required
 filetype plugin on
 filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""
-nnoremap Q <Nop>
-vnoremap i  <Esc>
-imap jj <esc>
-vmap jj <esc> 
-cmap jj <esc>
-"""""""""""""""""""""""""""""""""""""
-
-
 " Turn backup off, since most files in a VCS
 set nobackup
 set nowritebackup
 set noswapfile
 """""""""""""""""""""""""""""""""""""
-
-
 " No annoying sound on errors
 set noerrorbells
 set visualbell
 set t_vb=
 """""""""""""""""""""""""""""""""""""
-
-
 " Set position indicator on bottom right
 set ruler
-" Set spell checking
-" Disables cuz it's makes some bugs with Ultisnips , enable it only on plain
-" text editing
 " set spell
-" Highlight current line in number side
-" set cursorline
 set number
 " Show command in last line, usually on by default
 set showcmd
-
 " Minimum number of lines that will always be above/below cursor
 set scrolloff=10
 """"""""""""""""""""""""""""""""""""""
@@ -175,19 +138,6 @@ syntax enable
 set background=dark
 colorscheme gruvbox
 """""""""""""""""""""""""""""""""""""
-
-" auto indent and avoiding annoying stuff
-"
-
-"""""""""""""""""""""""""""""""""""""
-
-noremap <silent> <C-F9>  :vertical resize -10<CR>
-noremap <silent> <C-F10> :resize +10<CR>
-noremap <silent> <C-F11> :resize -10<CR>
-noremap <silent> <C-F12> :vertical resize -10<CR>
-"""""""""""""""""""""""""""""""""""""
-
-
 " Remap for fugitive commands
 nmap <leader>gs :Gstatus<cr>
 nmap <leader>ge :Gedit<cr>
@@ -195,58 +145,49 @@ nmap <leader>gw :Gwrite<cr>
 nmap <leader>gr :Gread<cr>
 nmap <leader>gp :Gpush<CR>
 """""""""""""""""""""""""""""""""""""
-
-nmap <leader>vs :VimShellPop<cr>
-nmap <leader>sp :vsp<cr>
-" GundoToggle will be open for ,,gu
-""""""""""""""""""""""""""""""""""""""
 " Tagbar configuration
 let g:tagbar_left=1
 " Tell gundo to close after a revert
 let g:gundo_close_on_revert=1
 """"""""""""""""""""""""""""""""""""""
-map <Leader> <Plug>(easymotion-prefix)
 " Laziness
 nnoremap ; :
 
-nmap <leader>g :GundoToggle<CR>
-nmap <leader>t :TagbarOpenAutoClose<CR>
-nmap <leader>n :NERDTreeToggle<CR>
+nmap <leader>sd :vsp<cr>
+nmap <leader>sw :sp<cr>
+nmap <leader>w :GundoToggle<CR>
+nmap <leader>e :TagbarOpenAutoClose<CR>
+nmap <leader>q :NERDTreeToggle<CR>
+nmap <leader>ev :vsp $MYVIMRC<CR>
+nmap <Leader>r :Tabularize /\|<CR>
+nmap <leader>f  :set background=light<CR>
+nmap <leader>g  :set background=dark<CR>
+"""""""""""""""""""""""""""""""""""""
+nnoremap Q <Nop>
+vnoremap i  <Esc>
+imap jj <esc>
+cmap jj <esc>
 """"""""""""""""""""""""""""""""""""""
-
 set ttyfast
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
-" Highlight current line
 set cursorline
 set showmatch
 set nowrap
 set smarttab
 set ignorecase smartcase
-
-" Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
-" Enable mouse in all modes
 set mouse=a
-" Don’t reset cursor to start of line when moving around.
 set nostartofline
-let g:vimtex_complete_enable =0
-set lazyredraw " Don't redraw screen when running macros.
+set lazyredraw 
 set hidden  
 set autoindent
 set wildmenu
-
-" Enable search Highlight
 set hlsearch
-
-" Incrementally match the search
 set incsearch
-
-" Automatically read a file that has changed on disk
 set autoread
-
 set relativenumber
+set timeoutlen=500
+
 
 command! Q q " Bind :Q to :q
 command! Qall qall
@@ -254,11 +195,3 @@ command! QA qall
 command! E e
 command! W w
 command! Wq wq
-
-set timeoutlen=500
-
-map <Leader>cu :Tabularize /\|<CR>
-nmap <Leader>pi :source ~/.vimrc<cr>:PluginInstall<cr>
-
-map <C-s> <esc>:w<CR>
-imap <C-s> <esc>:w<CR>
