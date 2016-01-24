@@ -1,26 +1,28 @@
 " Hey There! 
 
+" Created By:  Mor Zusman @ mor.zusmann@gmail.com
 " Notes: 
 " 	* ESC key is binded into j-j strike  
-" 	* Do not install airline + powerline symbols if you're working on a
-" 		Plastic computer(it will slow Vim -> slower workflow).
 " 	* Snips - Ctrl J for instant snip selection (it selects the first one)
 " 	* Ctrl-P - Jump between files .
-" 	* ,n - Jump between directories and files.
-" 	* ,t - Tag jump - Ctrl-N/P(to navigate) -> Enter to jump
+" 	* ,q - Jump between directories and files.
+" 	* ,e - Tag jump - Ctrl-N/P(to navigate) -> Enter to jump
+" 	* ,w - Gundo tree - undo tree
+" 	* ,r - Alingment with Tabularize.
+" 	* ,f - switch to light
+" 	* ,g - switch to dark
+" 	* ,` - stop highlight , useful after search.
+" 	* ,ev - open .vimrc file.
 "	* Copy UltiSnaps Dir to .vim for more Cool snips! 	
 "	Make sure to change inside the Ultisnaps your name&email ,
 "	I may change it (pretty soon) with script that reads
 "	those parameters from git.
 "	* g->c (In nmode) - comment , g->c->c - uncomment.
-"	* g->p - Move to the previous buffer , g->n - Move to the next.
 "	* gg->=->G indent the whole page(better to do this from the top 
 "		the file. (vG-> <... to indent to the left)
 "	* ,g/s/w/p/e - Git status/write/push/edit.
-"	* ,vs - Vim Shell , ,vp - Vertical split window.	
-" 	Created By:  Mor Zusman @ mor.zusmann@gmail.com
-"
-"
+"	* ,sd - Vertical split window.	
+"	* ,sw - Horizontal split window.	
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -39,18 +41,13 @@ let g:UltiSnipsExpandTrigger       = '<C-J>'
 let g:UltiSnipsListSnippets        = '<C-L>'
 
 """"""""""""""""""""""""""""""""""""
-" VimShell
 let g:NERDTreeShowHidden = 0
-
 " Don't need window after selecting file
 let g:NERDTreeQuitOnOpen = 1
-
 " Width of window
 let g:NERDTreeWinSize = 40
-
 """"""""""""""""""""""""""""""""""""""""
 let g:cpp_class_scope_highlight = 1
-
 """""""""""""""""""""""""""""""""""""
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
@@ -66,13 +63,9 @@ let g:ycm_semantic_triggers.tex = [
 """""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
-"Interactive shell
-" Plugin 'Shougo/vimproc.vim'
 " Plugin 'bling/vim-airline'
 " Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
-"Uses vimproc to make a shell page inside vim
-" Plugin 'Shougo/vimshell.vim'
 "Git pluging - see notes
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
@@ -86,6 +79,7 @@ Plugin 'scrooloose/nerdtree'
 " Markdown plugin for vim
 Plugin 'plasticboy/vim-markdown'
 " colorscheme
+Plugin 'chriskempson/vim-tomorrow-theme'
 Plugin 'morhetz/gruvbox'
 " Undo tree - very useful
 Plugin 'sjl/gundo.vim'
@@ -118,7 +112,7 @@ set nobackup
 set nowritebackup
 set noswapfile
 """""""""""""""""""""""""""""""""""""
-" No annoying sound on errors
+" No sound on errors
 set noerrorbells
 set visualbell
 set t_vb=
@@ -136,7 +130,7 @@ set scrolloff=10
 syntax enable
 " colorscheme specfications
 set background=dark
-colorscheme gruvbox
+colorscheme Tomorrow-Night
 """""""""""""""""""""""""""""""""""""
 " Remap for fugitive commands
 nmap <leader>gs :Gstatus<cr>
@@ -152,7 +146,7 @@ let g:gundo_close_on_revert=1
 """"""""""""""""""""""""""""""""""""""
 " Laziness
 nnoremap ; :
-
+nmap <leader>`  :nohl<cr>
 nmap <leader>sd :vsp<cr>
 nmap <leader>sw :sp<cr>
 nmap <leader>w :GundoToggle<CR>
@@ -187,7 +181,7 @@ set incsearch
 set autoread
 set relativenumber
 set timeoutlen=500
-
+" set spell
 
 command! Q q " Bind :Q to :q
 command! Qall qall
