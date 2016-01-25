@@ -23,6 +23,7 @@
 "	* ,g/s/w/p/e - Git status/write/push/edit.
 "	* ,sd - Vertical split window.	
 "	* ,sw - Horizontal split window.	
+"	* C-t , C-d - indent in insert mode.
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -34,19 +35,32 @@ let g:showtabline = 2
 let mapleader = ","
 let maplocalleader = ","
 """""""""""""""""""""""""""""""""""""
- set laststatus=2
 let g:UltiSnipsJumpForwardTrigger  = '<C-J>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 let g:UltiSnipsExpandTrigger       = '<C-J>'
 let g:UltiSnipsListSnippets        = '<C-L>'
-
 """"""""""""""""""""""""""""""""""""
+set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline_theme="tomorrow"
+let g:airline_left_sep=' '
+let g:airline_right_sep=' '
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = ' '
+""""""""""""""""""""""""""""""""""""""
+" Tagbar configuration
+let g:tagbar_left=1
+" Tell gundo to close after a revert
+let g:gundo_close_on_revert=1
+""""""""""""""""""""""""""""""""""""""
 let g:NERDTreeShowHidden = 0
 " Don't need window after selecting file
 let g:NERDTreeQuitOnOpen = 1
 " Width of window
 let g:NERDTreeWinSize = 40
 """"""""""""""""""""""""""""""""""""""""
+let g:vim_markdown_folding_disabled = 1
 let g:cpp_class_scope_highlight = 1
 """""""""""""""""""""""""""""""""""""
 let g:ycm_seed_identifiers_with_syntax = 1
@@ -63,11 +77,13 @@ let g:ycm_semantic_triggers.tex = [
 """""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
-" Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 " Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
 "Git pluging - see notes
 Plugin 'tpope/vim-fugitive'
+Plugin 'junegunn/gv.vim'
+
 Plugin 'L9'
 " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " CPP hl
@@ -108,9 +124,14 @@ filetype plugin on
 filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""
 " Turn backup off, since most files in a VCS
-set nobackup
-set nowritebackup
-set noswapfile
+" set nobackup
+" set nowritebackup
+" set noswapfile
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+if exists("&undodir")
+	set undodir=~/.vim/undo
+endif
 """""""""""""""""""""""""""""""""""""
 " No sound on errors
 set noerrorbells
@@ -126,11 +147,9 @@ set showcmd
 " Minimum number of lines that will always be above/below cursor
 set scrolloff=10
 """"""""""""""""""""""""""""""""""""""
-" Syntax checkgin' enabled 
-syntax enable
 " colorscheme specfications
 set background=dark
-colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night-Bright
 """""""""""""""""""""""""""""""""""""
 " Remap for fugitive commands
 nmap <leader>gs :Gstatus<cr>
@@ -139,11 +158,6 @@ nmap <leader>gw :Gwrite<cr>
 nmap <leader>gr :Gread<cr>
 nmap <leader>gp :Gpush<CR>
 """""""""""""""""""""""""""""""""""""
-" Tagbar configuration
-let g:tagbar_left=1
-" Tell gundo to close after a revert
-let g:gundo_close_on_revert=1
-""""""""""""""""""""""""""""""""""""""
 " Laziness
 nnoremap ; :
 nmap <leader>`  :nohl<cr>
@@ -162,11 +176,15 @@ vnoremap i  <Esc>
 imap jj <esc>
 cmap jj <esc>
 """"""""""""""""""""""""""""""""""""""
+set encoding=utf-8
 set ttyfast
 set cursorline
 set showmatch
 set nowrap
 set smarttab
+set shiftwidth=2
+set tabstop=8
+set expandtab
 set ignorecase smartcase
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
@@ -174,6 +192,7 @@ set mouse=a
 set nostartofline
 set lazyredraw 
 set hidden  
+set laststatus=2
 set autoindent
 set wildmenu
 set hlsearch
@@ -182,7 +201,8 @@ set autoread
 set relativenumber
 set timeoutlen=500
 " set spell
-
+" Syntax checkgin' enabled 
+syntax enable
 command! Q q " Bind :Q to :q
 command! Qall qall
 command! QA qall
