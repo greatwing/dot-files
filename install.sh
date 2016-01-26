@@ -1,5 +1,5 @@
 #/bin/sh
-apt-get install -y git curl zsh vim tmux  build-essential cmake  make gcc  python-dev  ctags
+apt-get install -y git curl zsh vim tmux build-essential cmake  make gcc python-dev ctags git-extras
 git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 git clone https://github.com/powerline/fonts.git $HOME/fonts
 $HOME/fonts/install.sh
