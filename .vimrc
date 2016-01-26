@@ -65,15 +65,10 @@ let g:cpp_class_scope_highlight = 1
 """""""""""""""""""""""""""""""""""""
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:lt_height = 5
 let g:ycm_autoclose_preview_window_after_completion=1
-if !exists('g:ycm_semantic_triggers')
-	let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers.tex = [
-			\ 're!\\[A-Za-z]*(ref|cite)[A-Za-z]*([^]]*])?{([^}]*,?)*',
-			\ 're!\\includegraphics([^]]*])?{[^}]*',
-			\ 're!\\(include|input){[^}]*'
-			\ ]
+let g:ycm_always_populate_location_list = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
 """""""""""""""""""""""""""""""""""""
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
@@ -83,9 +78,6 @@ Plugin 'VundleVim/Vundle.vim'
 "Git pluging - see notes
 Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/gv.vim'
-
-Plugin 'L9'
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " CPP hl
 Plugin 'octol/vim-cpp-enhanced-highlight'
 " Alignment plugin
@@ -96,7 +88,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'plasticboy/vim-markdown'
 " colorscheme
 Plugin 'chriskempson/vim-tomorrow-theme'
-Plugin 'morhetz/gruvbox'
+" Plugin 'morhetz/gruvbox'
 " Undo tree - very useful
 Plugin 'sjl/gundo.vim'
 " Surround plugin , see notes
@@ -109,6 +101,7 @@ Plugin 'tpope/vim-repeat'
 " Plugin 'lervag/vimtex'
 " Best autocomplete engine for vim 
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/ListToggle'
 " Snippets collection for vim
 Plugin 'honza/vim-snippets'
 " Comments plugin see notes.
@@ -163,13 +156,15 @@ nnoremap ; :
 nmap <leader>`  :nohl<cr>
 nmap <leader>sd :vsp<cr>
 nmap <leader>sw :sp<cr>
+nmap <leader>q :NERDTreeToggle<CR>
 nmap <leader>w :GundoToggle<CR>
 nmap <leader>e :TagbarOpenAutoClose<CR>
-nmap <leader>q :NERDTreeToggle<CR>
+nmap <leader>r :YcmCompleter GoToDeclaration<CR>
 nmap <leader>ev :vsp $MYVIMRC<CR>
-nmap <Leader>r :Tabularize /\|<CR>
-nmap <leader>f  :set background=light<CR>
-nmap <leader>g  :set background=dark<CR>
+let g:ycm_key_detailed_diagnostics = '<leader>aa'
+nnoremap <leader>as :YcmForceCompileAndDiagnostics<CR>
+let g:lt_location_list_toggle_map = '<leader>ad'
+let g:lt_quickfix_list_toggle_map = '<leader>af'
 """""""""""""""""""""""""""""""""""""
 nnoremap Q <Nop>
 vnoremap i  <Esc>
@@ -182,6 +177,7 @@ set cursorline
 set showmatch
 set nowrap
 set smarttab
+" set foldmethod=syntax
 set shiftwidth=2
 set tabstop=8
 set expandtab
