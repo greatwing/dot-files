@@ -1,5 +1,10 @@
 # Path to your oh-my-zsh installation.
+#
   export ZSH=/$HOME/.oh-my-zsh
+tmux -2 attach &> /dev/null
+if [[ ! $TERM =~ screen ]]; then
+      exec tmux -2
+  fi
 
 # in order to install tldr :
 # mkdir -p ~/bin
@@ -11,10 +16,10 @@
 
 
 
-  
-ZSH_THEME="agnoster"
 
-plugins=(git colored-man-pages colorize cp extract web-search)
+ZSH_THEME="avit"
+
+plugins=(git colored-man-pages colorize cp extract web-search git-extras)
 
 
 export PATH="$HOME/bin:/usr/local/bin:$PATH"
@@ -39,3 +44,6 @@ alias gco="git checkout"
 alias gpl="git pull"
 alias gd="git deff"
 alias ga="git add"
+alias pic="eom"
+alias c="clear"
+

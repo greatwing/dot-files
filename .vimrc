@@ -1,5 +1,4 @@
 " Hey There! 
-
 " Created By:  Mor Zusman @ mor.zusmann@gmail.com
 " Notes: 
 " 	* ESC key is binded into j-j strike  
@@ -26,50 +25,9 @@
 "	* C-t , C-d - indent in insert mode.
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
 if !has('gui_running')	"set Terminal Vim to 256 colors
 	set t_Co=256
-endif
-" System default for mappings is now the "," character
-let g:showtabline = 2
-let mapleader = ","
-let maplocalleader = ","
-"""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsJumpForwardTrigger  = '<C-J>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
-let g:UltiSnipsExpandTrigger       = '<C-J>'
-let g:UltiSnipsListSnippets        = '<C-L>'
-""""""""""""""""""""""""""""""""""""
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#bufferline#enabled = 1
-let g:airline_theme="tomorrow"
-let g:airline_left_sep=' '
-let g:airline_right_sep=' '
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = ' '
-""""""""""""""""""""""""""""""""""""""
-" Tagbar configuration
-let g:tagbar_left=1
-" Tell gundo to close after a revert
-let g:gundo_close_on_revert=1
-""""""""""""""""""""""""""""""""""""""
-let g:NERDTreeShowHidden = 0
-" Don't need window after selecting file
-let g:NERDTreeQuitOnOpen = 1
-" Width of window
-let g:NERDTreeWinSize = 40
-""""""""""""""""""""""""""""""""""""""""
-let g:vim_markdown_folding_disabled = 1
-let g:cpp_class_scope_highlight = 1
-"""""""""""""""""""""""""""""""""""""
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-let g:lt_height = 5
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_always_populate_location_list = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-"""""""""""""""""""""""""""""""""""""
+      end
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
 Plugin 'bling/vim-airline'
@@ -112,7 +70,61 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'kien/ctrlp.vim'
 " Function finder
 Plugin 'majutsushi/tagbar'
+" c/pp plugins
+Plugin 'vim-scripts/a.vim'
+" tmux plugins 
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'edkolev/tmuxline.vim'
+" Eclipse plugin
+" Plugin 'ervandew/eclim'
 call vundle#end()            " required
+" System default for mappings is now the "," character
+" let g:showtabline = 2
+let mapleader = ","
+let maplocalleader = ","
+"""""""""""""""""""""""""""""""""""""
+let g:UltiSnipsJumpForwardTrigger  = '<C-J>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
+let g:UltiSnipsExpandTrigger       = '<C-J>'
+let g:UltiSnipsListSnippets        = '<C-L>'
+""""""""""""""""""""""""""""""""""""
+set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#bufferline#enabled = 1
+let g:airline_theme="tomorrow"
+let g:airline_left_sep=' '
+let g:airline_right_sep=' '
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = ' '
+""""""""""""""""""""""""""""""""""""""
+" Tagbar configuration
+let g:tagbar_left=1
+" Tell gundo to close after a revert
+let g:gundo_close_on_revert=1
+""""""""""""""""""""""""""""""""""""""
+let g:NERDTreeShowHidden = 0
+" Don't need window after selecting file
+let g:NERDTreeQuitOnOpen = 1
+" Width of window
+let g:NERDTreeWinSize = 40
+""""""""""""""""""""""""""""""""""""""""
+let g:vim_markdown_folding_disabled = 1
+let g:cpp_class_scope_highlight = 1
+"""""""""""""""""""""""""""""""""""""
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:lt_height = 5
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_always_populate_location_list = 1
+let g:ycm_collect_identifiers_from_tags_files = 1
+"""""""""""""""""""""""""""""""""""""
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'win'  : ['#I', '#W'],
+      \'cwin' : ['#I', '#W', '#F'],
+      \'y'    : ['%R', '%a', '%Y'],
+      \'z'    : '#H'}
+"""""""""""""""""""""""""""""""""""""
 filetype plugin on
 filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""
@@ -145,31 +157,43 @@ set background=dark
 colorscheme Tomorrow-Night-Bright
 """""""""""""""""""""""""""""""""""""
 " Remap for fugitive commands
-nmap <leader>gs :Gstatus<cr>
-nmap <leader>ge :Gedit<cr>
-nmap <leader>gw :Gwrite<cr>
-nmap <leader>gr :Gread<cr>
-nmap <leader>gp :Gpush<CR>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>ge :Gedit<cr>
+nnoremap <leader>gw :Gwrite<cr>
+nnoremap <leader>gr :Gread<cr>
+nnoremap <leader>gp :Gpush<CR>
 """""""""""""""""""""""""""""""""""""
+nnoremap <C-l> :wincmd l<CR>
+nnoremap <C-k> :wincmd k<CR>
+nnoremap <C-j> :wincmd j<CR>
+nnoremap <C-h> :wincmd h<CR>
+""""""""""""""""""""""""""""""""""""
 " Laziness
 nnoremap ; :
-nmap <leader>`  :nohl<cr>
-nmap <leader>sd :vsp<cr>
-nmap <leader>sw :sp<cr>
-nmap <leader>q :NERDTreeToggle<CR>
-nmap <leader>w :GundoToggle<CR>
-nmap <leader>e :TagbarOpenAutoClose<CR>
-nmap <leader>r :YcmCompleter GoToDeclaration<CR>
-nmap <leader>ev :vsp $MYVIMRC<CR>
-let g:ycm_key_detailed_diagnostics = '<leader>aa'
-nnoremap <leader>as :YcmForceCompileAndDiagnostics<CR>
-let g:lt_location_list_toggle_map = '<leader>ad'
-let g:lt_quickfix_list_toggle_map = '<leader>af'
+nnoremap <leader>`  :nohl<cr>
+nnoremap <leader>sd :aboveleft vsp<cr>
+nnoremap <leader>ss :aboveleft sp<cr>
+nnoremap <leader>sw :belowright sp<cr>
+nnoremap <leader>sa :belowright vsp<cr>
+nnoremap <leader>q :NERDTreeToggle<CR>
+nnoremap <leader>w :GundoToggle<CR>
+nnoremap <leader>e :TagbarOpenAutoClose<CR>
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+noremap <C-a> :A<CR>
+nnoremap <leader>1 :YcmCompleter GoToDeclaration<CR>
+let g:ycm_key_detailed_diagnostics = '<leader>2'
+let g:lt_location_list_toggle_map = '<leader>3'
+let g:lt_quickfix_list_toggle_map = '<leader>4'
+nnoremap <leader>5 :YcmForceCompileAndDiagnostics<CR><CR>
+nnoremap <leader>r :normal! mmgg=Gjk''m''m :g/$^/d<CR>
+nnoremap <leader><leader>b :make -C build<CR><CR><CR>
+nnoremap <leader><leader> :w<cr>
+autocmd BufWritePre * :g/^$/d
 """""""""""""""""""""""""""""""""""""
 nnoremap Q <Nop>
 vnoremap i  <Esc>
-imap jj <esc>
-cmap jj <esc>
+inoremap jj <esc>
+cnoremap jj <esc>
 """"""""""""""""""""""""""""""""""""""
 set encoding=utf-8
 set ttyfast
@@ -178,12 +202,12 @@ set showmatch
 set nowrap
 set smarttab
 " set foldmethod=syntax
-set shiftwidth=2
-set tabstop=8
-set expandtab
+set shiftwidth=4
+set tabstop=4
+set noexpandtab
 set ignorecase smartcase
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
-set list
+" set list
 set mouse=a
 set nostartofline
 set lazyredraw 
@@ -203,5 +227,5 @@ command! Q q " Bind :Q to :q
 command! Qall qall
 command! QA qall
 command! E e
-command! W w
 command! Wq wq
+command! W w !sudo tee % > /dev/null
