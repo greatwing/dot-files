@@ -18,7 +18,7 @@
 " those parameters from git.
 " * g->c (In nmode) - comment , g->c->c - uncomment.
 " * gg->=->G indent the whole page(better to do this from the top 
-	" the file. (vG-> <... to indent to the left)
+" the file. (vG-> <... to indent to the left)
 " * ,g/s/w/p/e - Git status/write/push/edit.
 " * ,sd - Vertical split window.	
 " * ,sw - Horizontal split window.	
@@ -27,7 +27,7 @@ set nocompatible " be iMproved, required
 filetype off                  " required
 if !has('gui_running')	"set Terminal Vim to 256 colors
 	set t_Co=256
-      end
+end
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
 call vundle#begin()
 " Plugin 'bling/vim-airline'
@@ -46,6 +46,9 @@ Plugin 'scrooloose/nerdtree'
 " Markdown plugin for vim
 Plugin 'plasticboy/vim-markdown'
 " colorscheme
+
+Plugin 'bling/vim-bufferline'
+Plugin 'junegunn/goyo.vim'
 Plugin 'chriskempson/vim-tomorrow-theme'
 " Undo tree - very useful
 Plugin 'sjl/gundo.vim'
@@ -70,6 +73,8 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'kien/ctrlp.vim'
 " Function finder
 Plugin 'majutsushi/tagbar'
+" Calendar 
+Plugin 'itchyny/calendar.vim'
 " c/pp plugins
 Plugin 'vim-scripts/a.vim'
 " tmux plugins 
@@ -79,35 +84,48 @@ Plugin 'tpope/vim-dispatch'
 call vundle#end()            " required
 " System default for mappings is now the "," character
 " let g:showtabline = 2
-let mapleader                     = ","
-let maplocalleader                = ","
+let g:bufferline_echo = 0
+autocmd VimEnter *
+			\ let &statusline='%{bufferline#refresh_status()}'
+			\ .bufferline#get_status_string()
+
+let g:calendar_google_calendar     = 1
+let g:calendar_google_task         = 1
+let mapleader                      = ","
+let maplocalleader                 = ","
+"-----------GoyoConfig---------------"
+let g:goyo_width                   = 160
+let g:goyo_height                  = 90
 "-----------UltiSnips----------------"
 let g:UltiSnipsJumpForwardTrigger  = '<C-J>'
 let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
 let g:UltiSnipsExpandTrigger       = '<C-J>'
 let g:UltiSnipsListSnippets        = '<C-L>'
 "----------Status-Line---------------"
-set statusline=\ %F%m%r%h\ %w\ \ \ %r%{getcwd()}%h\ \ \ Line:\ %l
+" set statusline                     =\ %F%m%r%h\ %w\ \ \ %r%{getcwd()}%h\ \ \ Line:\ %l
 "----------Gundo-Plugin--------------"
 " Tagbar configuration
 " Tell gundo to close after a revert
 let g:gundo_close_on_revert = 1
 let g:gundo_right           = 1
 "----------NerdTree-Plugin-----------"
-let g:NERDTreeShowHidden = 0
-let g:NERDTreeWinPos     = "right"
+let g:NERDTreeShowHidden    = 0
+let g:NERDTreeWinPos        = "right"
 " Don't need window after selecting file
-let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeQuitOnOpen    = 1
 " Width of window
-let g:NERDTreeWinSize    = 40
+let g:NERDTreeWinSize       = 40
 "----------Vim-Syntax----------------"
-let g:vim_markdown_folding_disabled    = 1
-let g:cpp_class_scope_highlight        = 1
+let g:vim_markdown_folding_disabled                 = 1
+let g:cpp_class_scope_highlight                     = 1
 "----------You-Complete-Me-----------"
 let g:ycm_seed_identifiers_with_syntax              = 1
 let g:ycm_global_ycm_extra_conf                     = '~/.ycm_extra_conf.py'
 let g:lt_height                                     = 5
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_warning_symbol                            = '>'
+let g:ycm_complete_in_comments                      = 1
+let g:ycm_add_preview_to_completeopt                = 1
 let g:ycm_always_populate_location_list             = 1
 let g:ycm_collect_identifiers_from_tags_files       = 1
 "----------Must----------------------"
@@ -153,6 +171,8 @@ nnoremap <C-h> :wincmd h<CR>
 "----------MappingCustomization------"
 " Laziness
 nnoremap ; :
+nnoremap <leader>a					: bp<cr>
+nnoremap <leader>d					: bn<cr>
 nnoremap <leader>`                  : nohl<cr>
 nnoremap <leader>sd                 : aboveleft vsp<cr>
 nnoremap <leader>ss                 : aboveleft sp<cr>
@@ -162,17 +182,18 @@ nnoremap <leader>q                  : NERDTreeToggle<CR>
 nnoremap <leader>w                  : GundoToggle<CR>
 nnoremap <leader>e                  : TagbarOpenAutoClose<CR>
 nnoremap <leader>ev                 : vsp $MYVIMRC<CR>
-nnoremap <C-a>                      : A<CR>
-au BufRead,BufNewFile *.{cpp,h,hpp} : nnoremap <leader><leader>b :Make -C build<CR>
-nnoremap <leader>1                  : YcmCompleter GoToDeclaration<CR>
+au BufRead,BufNewFile *.{c*,h*} : nnoremap <C-a>  : A<CR>
+au BufRead,BufNewFile *.{c*,h*} : nnoremap <leader><leader>b :Make -C build<CR>
+au InsertLeave * 					: normal! mmgg=Gjk''m''m<CR> 
+noremap <leader>1                   : YcmCompleter GoTo<CR>
 let g:ycm_key_detailed_diagnostics = '<leader>2'
-let g:lt_location_list_toggle_map  = '<leader>3'
-let g:lt_quickfix_list_toggle_map  = '<leader>4'
-nnoremap <leader>5         :YcmForceCompileAndDiagnostics<CR><CR>
-nnoremap <leader>r         :normal! mmgg=Gjk''m''m <CR>
+let g:lt_location_list_toggle_map  = '<C-z>'
+let g:lt_quickfix_list_toggle_map  = '<C-x>'
+nnoremap <leader>3         :YcmForceCompileAndDiagnostics<CR><CR>
 nnoremap <leader><leader>  :w<cr>
 xmap ga                    <Plug>(EasyAlign)
 nmap ga                    <Plug>(EasyAlign)
+noremap <leader>r		   :Goyo<CR>
 "------------Escape-Alternative------"
 nnoremap Q    <Nop>
 vnoremap i    <Esc>
