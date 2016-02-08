@@ -23,12 +23,30 @@
 " * ,sd - Vertical split window.	
 " * ,sw - Horizontal split window.	
 " * C-t , C-d - indent in insert mode.
-set nocompatible " be iMproved, required
 filetype off                  " required
+if has('nvim')
+	let s:editor_root=expand("~/.nvim")
+	tnoremap <C-h> <C-\><C-n><C-w>h
+	tnoremap <C-j> <C-\><C-n><C-w>j
+	tnoremap <C-k> <C-\><C-n><C-w>k
+	tnoremap <C-l> <C-\><C-n><C-w>l
+	tnoremap jj    <C-\><C-n>
+else
+	let s:editor_root=expand("~/.vim")
+	set ttyfast
+	set nocompatible " be iMproved, required
+	set t_vb=
+endif
 if !has('gui_running')	"set Terminal Vim to 256 colors
 	set t_Co=256
 end
+let vundle_installed=1
+" let vundle_readme=s:editor_root . '/bundle/vundle/README.md'
+" let &rtp = &rtp . ',' . s:editor_root . '/bundle/vundle/'
+" call vundle#rc(s:editor_root . '/bundle')
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
+"set rtp +=s:editor_root . '/bundle/vundle/'
+call vundle#rc(s:editor_root . '/bundle')
 call vundle#begin()
 " Plugin 'bling/vim-airline'
 " Plugin Manager
@@ -46,7 +64,6 @@ Plugin 'scrooloose/nerdtree'
 " Markdown plugin for vim
 Plugin 'plasticboy/vim-markdown'
 " colorscheme
-
 Plugin 'bling/vim-bufferline'
 Plugin 'junegunn/goyo.vim'
 Plugin 'chriskempson/vim-tomorrow-theme'
@@ -80,7 +97,7 @@ Plugin 'vim-scripts/a.vim'
 " tmux plugins 
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-dispatch'
-
+Plugin 'benekastah/neomake'
 call vundle#end()            " required
 " System default for mappings is now the "," character
 " let g:showtabline = 2
@@ -142,7 +159,6 @@ endif
 " No sound on errors
 set noerrorbells
 set visualbell
-set t_vb=
 "----------UI-Customize--------------"
 " Set position indicator on bottom right
 set ruler
@@ -171,29 +187,40 @@ nnoremap <C-h> :wincmd h<CR>
 "----------MappingCustomization------"
 " Laziness
 nnoremap ; :
-nnoremap <leader>a					: bp<cr>
-nnoremap <leader>d					: bn<cr>
-nnoremap <leader>`                  : nohl<cr>
-nnoremap <leader>sd                 : aboveleft vsp<cr>
-nnoremap <leader>ss                 : aboveleft sp<cr>
-nnoremap <leader>sw                 : belowright sp<cr>
-nnoremap <leader>sa                 : belowright vsp<cr>
-nnoremap <leader>q                  : NERDTreeToggle<CR>
-nnoremap <leader>w                  : GundoToggle<CR>
-nnoremap <leader>e                  : TagbarOpenAutoClose<CR>
-nnoremap <leader>ev                 : vsp $MYVIMRC<CR>
-au BufRead,BufNewFile *.{c*,h*} : nnoremap <C-a>  : A<CR>
-au BufRead,BufNewFile *.{c*,h*} : nnoremap <leader><leader>b :Make -C build<CR>
-au InsertLeave * 					: normal! mmgg=Gjk''m''m<CR> 
-noremap <leader>1                   : YcmCompleter GoTo<CR>
+nnoremap <leader>t  : terminal<CR>
+nnoremap <leader>a  : bp<cr>
+nnoremap <leader>d  : bn<cr>
+nnoremap <leader>x  : bd<cr>
+nnoremap <leader>`  : nohl<cr>
+nnoremap <leader>sd : aboveleft vsp<cr>
+nnoremap <leader>ss : aboveleft sp<cr>
+nnoremap <leader>sw : belowright sp<cr>
+nnoremap <leader>sa : belowright vsp<cr>
+nnoremap <leader>q  : NERDTreeToggle<CR>
+nnoremap <leader>w  : GundoToggle<CR>
+nnoremap <leader>e  : TagbarOpenAutoClose<CR>
+nnoremap <leader>v  : e $MYVIMRC<CR>
+noremap <leader>1   : YcmCompleter GoTo<CR>
+nnoremap <leader>3  : YcmForceCompileAndDiagnostics<CR><CR>
+noremap <leader>r   : Goyo<CR>
+xmap ga            <Plug>(EasyAlign)
+nmap ga            <Plug>(EasyAlign)
+nnoremap J							3j
+nnoremap K							3k
+vnoremap J							3j
+vnoremap K							3k
 let g:ycm_key_detailed_diagnostics = '<leader>2'
 let g:lt_location_list_toggle_map  = '<C-z>'
 let g:lt_quickfix_list_toggle_map  = '<C-x>'
-nnoremap <leader>3         :YcmForceCompileAndDiagnostics<CR><CR>
-nnoremap <leader><leader>  :w<cr>
-xmap ga                    <Plug>(EasyAlign)
-nmap ga                    <Plug>(EasyAlign)
-noremap <leader>r		   :Goyo<CR>
+" nnoremap <leader><leader>  :w<cr>
+"------------AutoCommand-Config------"
+au BufRead,BufNewFile *.{c*,h*} : nnoremap <C-a>  : A<CR>
+au InsertLeave *                : normal! mmgg=G`m<CR>
+au BufRead,BufNewFile *.{c*,h*} : nnoremap <leader><leader>b :Neomake cmake<CR>
+"------------NeoMake-Configuration---"
+let g:neomake_cpp_cmake_maker = {
+			\ 'args': ['-C build']}
+let g:neomake_cpp_enabled_makers = ['cmake']
 "------------Escape-Alternative------"
 nnoremap Q    <Nop>
 vnoremap i    <Esc>
@@ -206,8 +233,7 @@ command! E    e
 command! Wq   wq
 command! W    w !sudo tee % > /dev/null
 "------------Vim-Functioning---------"
-set encoding =utf-8
-set ttyfast
+" set encoding =utf-8
 set cursorline
 set showmatch
 set nowrap

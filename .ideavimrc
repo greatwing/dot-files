@@ -1,0 +1,12 @@
+nnoremap Q  <Nop>
+vnoremap i  <Esc>
+inoremap jj <esc>
+cnoremap jj <esc>
+nnoremap J  3j
+nnoremap K  3k
+vnoremap J  3j
+vnoremap K  3k
+set relativenumber
+set showmode
+set matchpairs
+
