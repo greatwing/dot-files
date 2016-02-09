@@ -42,60 +42,57 @@ endif
 if !has('gui_running')	"set Terminal Vim to 256 colors
 	set t_Co=256
 end
-let vundle_installed=1
-set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
-call vundle#rc(s:editor_root . '/bundle')
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 " Plugin Manager
-Plugin 'VundleVim/Vundle.vim'
+" Plugin 'VundleVim/Vundle.vim'
 "Git pluging - see notes
-Plugin 'tpope/vim-fugitive'
-Plugin 'junegunn/gv.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 " CPP hl
-Plugin 'octol/vim-cpp-enhanced-highlight'
+Plug 'octol/vim-cpp-enhanced-highlight'
 " Alignment plugin
-Plugin 'godlygeek/tabular'
-Plugin 'junegunn/vim-easy-align'
+Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
 " FileExplorer for vim
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " Markdown plugin for vim
-Plugin 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown'
 " colorscheme
-Plugin 'bling/vim-bufferline'
-Plugin 'junegunn/goyo.vim'
-Plugin 'chriskempson/vim-tomorrow-theme'
+Plug 'bling/vim-bufferline'
+Plug 'junegunn/goyo.vim'
+Plug 'chriskempson/vim-tomorrow-theme'
 " Undo tree - very useful
-Plugin 'sjl/gundo.vim'
-" Surround plugin , see notes
-Plugin 'tpope/vim-surround'
+Plug 'sjl/gundo.vim'
+" Surround Plug , see notes
+Plug 'tpope/vim-surround'
 " Powerfull snippets plugin
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 " Enable us to repeat alot of things with '.'
-Plugin 'tpope/vim-repeat'
+Plug 'tpope/vim-repeat'
 " Optinal - vimtex - Latex plugin for vim , see their page for details
 " Plugin 'lervag/vimtex'
 " Best autocomplete engine for vim 
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'Valloric/ListToggle'
+Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/ListToggle'
 " Snippets collection for vim
-Plugin 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 " Comments plugin see notes.
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
 " Automatically completes brackets
-Plugin 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 " Fuzzy file finder
-Plugin 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim'
 " Function finder
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " Calendar 
-Plugin 'itchyny/calendar.vim'
+Plug 'itchyny/calendar.vim'
 " c/pp plugins
-Plugin 'vim-scripts/a.vim'
+Plug 'vim-scripts/a.vim'
 " tmux plugins 
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tpope/vim-dispatch'
-Plugin 'benekastah/neomake'
-call vundle#end()            " required
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-dispatch'
+Plug 'benekastah/neomake'
+call plug#end()            " required
 " System default for mappings is now the "," character
 " let g:showtabline = 2
 let g:bufferline_echo                               = 0
