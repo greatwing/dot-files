@@ -1,7 +1,7 @@
 #/bin/sh
 echo "This script is gonna change your pc configuration completely, continue (y/n) ?"
 read QQ
-if ("$QQ" == "y")
+if ("$QQ" == "y") then
 	sudo add-apt-repository ppa:neovim-ppa/unstable
 	sudo apt-get update
 	sudo apt-get install -y git curl zsh vim tmux build-essential cmake make gcc python-dev ctags git-extras \
