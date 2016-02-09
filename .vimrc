@@ -31,6 +31,8 @@ if has('nvim')
 	tnoremap <C-k> <C-\><C-n><C-w>k
 	tnoremap <C-l> <C-\><C-n><C-w>l
 	tnoremap jj    <C-\><C-n>
+	autocmd BufEnter term://* startinsert
+	" let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 else
 	let s:editor_root=expand("~/.vim")
 	set ttyfast
@@ -41,14 +43,9 @@ if !has('gui_running')	"set Terminal Vim to 256 colors
 	set t_Co=256
 end
 let vundle_installed=1
-" let vundle_readme=s:editor_root . '/bundle/vundle/README.md'
-" let &rtp = &rtp . ',' . s:editor_root . '/bundle/vundle/'
-" call vundle#rc(s:editor_root . '/bundle')
 set rtp+=~/.vim/bundle/Vundle.vim  "Path to vundle's Dir
-"set rtp +=s:editor_root . '/bundle/vundle/'
 call vundle#rc(s:editor_root . '/bundle')
 call vundle#begin()
-" Plugin 'bling/vim-airline'
 " Plugin Manager
 Plugin 'VundleVim/Vundle.vim'
 "Git pluging - see notes
@@ -101,37 +98,34 @@ Plugin 'benekastah/neomake'
 call vundle#end()            " required
 " System default for mappings is now the "," character
 " let g:showtabline = 2
-let g:bufferline_echo = 0
-autocmd VimEnter *
-			\ let &statusline='%{bufferline#refresh_status()}'
-			\ .bufferline#get_status_string()
+let g:bufferline_echo                               = 0
 
-let g:calendar_google_calendar     = 1
-let g:calendar_google_task         = 1
-let mapleader                      = ","
-let maplocalleader                 = ","
+let g:calendar_google_calendar                      = 1
+let g:calendar_google_task                          = 1
+let mapleader                                       = ","
+let maplocalleader                                  = ","
 "-----------GoyoConfig---------------"
-let g:goyo_width                   = 160
-let g:goyo_height                  = 90
+let g:goyo_width                                    = 160
+let g:goyo_height                                   = 90
 "-----------UltiSnips----------------"
-let g:UltiSnipsJumpForwardTrigger  = '<C-J>'
-let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
-let g:UltiSnipsExpandTrigger       = '<C-J>'
-let g:UltiSnipsListSnippets        = '<C-L>'
+let g:UltiSnipsJumpForwardTrigger                   = '<C-J>'
+let g:UltiSnipsJumpBackwardTrigger                  = '<C-K>'
+let g:UltiSnipsExpandTrigger                        = '<C-J>'
+let g:UltiSnipsListSnippets                         = '<C-L>'
 "----------Status-Line---------------"
 " set statusline                     =\ %F%m%r%h\ %w\ \ \ %r%{getcwd()}%h\ \ \ Line:\ %l
 "----------Gundo-Plugin--------------"
 " Tagbar configuration
 " Tell gundo to close after a revert
-let g:gundo_close_on_revert = 1
-let g:gundo_right           = 1
+let g:gundo_close_on_revert                         = 1
+let g:gundo_right                                   = 1
 "----------NerdTree-Plugin-----------"
-let g:NERDTreeShowHidden    = 0
-let g:NERDTreeWinPos        = "right"
+let g:NERDTreeShowHidden                            = 0
+let g:NERDTreeWinPos                                = "right"
 " Don't need window after selecting file
-let g:NERDTreeQuitOnOpen    = 1
+let g:NERDTreeQuitOnOpen                            = 1
 " Width of window
-let g:NERDTreeWinSize       = 40
+let g:NERDTreeWinSize                               = 40
 "----------Vim-Syntax----------------"
 let g:vim_markdown_folding_disabled                 = 1
 let g:cpp_class_scope_highlight                     = 1
@@ -174,49 +168,61 @@ set background =dark
 colorscheme Tomorrow-Night
 "----------Fugitive-Plugin-----------"
 " Remap for fugitive commands
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>ge :Gedit<cr>
-nnoremap <leader>gw :Gwrite<cr>
-nnoremap <leader>gr :Gread<cr>
-nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gs : Gstatus<cr>
+nnoremap <leader>ge : Gedit<cr>
+nnoremap <leader>gw : Gwrite<cr>
+nnoremap <leader>gr : Gread<cr>
+nnoremap <leader>gp : Gpush<CR>
 "----------Window-Customization------"
-nnoremap <C-l> :wincmd l<CR>
-nnoremap <C-k> :wincmd k<CR>
-nnoremap <C-j> :wincmd j<CR>
-nnoremap <C-h> :wincmd h<CR>
+nnoremap <C-l>      : wincmd l<CR>
+nnoremap <C-k>      : wincmd k<CR>
+nnoremap <C-j>      : wincmd j<CR>
+nnoremap <C-h>      : wincmd h<CR>
 "----------MappingCustomization------"
 " Laziness
 nnoremap ; :
-nnoremap <leader>t  : terminal<CR>
-nnoremap <leader>a  : bp<cr>
-nnoremap <leader>d  : bn<cr>
-nnoremap <leader>x  : bd<cr>
-nnoremap <leader>`  : nohl<cr>
-nnoremap <leader>sd : aboveleft vsp<cr>
-nnoremap <leader>ss : aboveleft sp<cr>
-nnoremap <leader>sw : belowright sp<cr>
-nnoremap <leader>sa : belowright vsp<cr>
-nnoremap <leader>q  : NERDTreeToggle<CR>
-nnoremap <leader>w  : GundoToggle<CR>
-nnoremap <leader>e  : TagbarOpenAutoClose<CR>
-nnoremap <leader>v  : e $MYVIMRC<CR>
-noremap <leader>1   : YcmCompleter GoTo<CR>
-nnoremap <leader>3  : YcmForceCompileAndDiagnostics<CR><CR>
-noremap <leader>r   : Goyo<CR>
-xmap ga            <Plug>(EasyAlign)
-nmap ga            <Plug>(EasyAlign)
+nnoremap <leader>t                  : terminal<CR>
+nnoremap <leader>a                  : bp<cr>
+nnoremap <leader>d                  : bn<cr>
+nnoremap <leader>x                  : bd<cr>
+nnoremap <leader>`                  : nohl<cr>
+nnoremap <leader>sd                 : aboveleft vsp<cr>
+nnoremap <leader>ss                 : aboveleft sp<cr>
+nnoremap <leader>sw                 : belowright sp<cr>
+nnoremap <leader>sa                 : belowright vsp<cr>
+nnoremap <leader>q                  : NERDTreeToggle<CR>
+nnoremap <leader>w                  : GundoToggle<CR>
+nnoremap <leader>e                  : TagbarOpenAutoClose<CR>
+nnoremap <leader>v                  : e $MYVIMRC<CR>
+nnoremap <leader><leader>           : YcmCompleter GoTo<CR>
+nnoremap <Leader>1                  : 1b<CR>
+nnoremap <Leader>2                  : 2b<CR>
+nnoremap <Leader>3                  : 3b<CR>
+nnoremap <Leader>4                  : 4b<CR>
+nnoremap <Leader>5                  : 5b<CR>
+nnoremap <Leader>6                  : 6b<CR>
+nnoremap <Leader>7                  : 7b<CR>
+nnoremap <Leader>8                  : 8b<CR>
+nnoremap <Leader>9                  : 9b<CR>
+nnoremap <Leader>0                  : 10b<CR>
+noremap <leader>r                   : Goyo<CR>
+xmap ga                             <Plug>(EasyAlign)
+nmap ga                             <Plug>(EasyAlign)
 nnoremap J							3j
 nnoremap K							3k
 vnoremap J							3j
 vnoremap K							3k
-let g:ycm_key_detailed_diagnostics = '<leader>2'
-let g:lt_location_list_toggle_map  = '<C-z>'
-let g:lt_quickfix_list_toggle_map  = '<C-x>'
+let g:ycm_key_detailed_diagnostics  = '<leader>m'
+let g:lt_location_list_toggle_map   = '<C-z>'
+let g:lt_quickfix_list_toggle_map   = '<C-x>'
 " nnoremap <leader><leader>  :w<cr>
 "------------AutoCommand-Config------"
 au BufRead,BufNewFile *.{c*,h*} : nnoremap <C-a>  : A<CR>
 au InsertLeave *                : normal! mmgg=G`m<CR>
 au BufRead,BufNewFile *.{c*,h*} : nnoremap <leader><leader>b :Neomake cmake<CR>
+autocmd VimEnter *
+			\ let &statusline='%{bufferline#refresh_status()}'
+			\ .bufferline#get_status_string()
 "------------NeoMake-Configuration---"
 let g:neomake_cpp_cmake_maker = {
 			\ 'args': ['-C build']}
@@ -234,27 +240,28 @@ command! Wq   wq
 command! W    w !sudo tee % > /dev/null
 "------------Vim-Functioning---------"
 " set encoding =utf-8
-set cursorline
-set showmatch
-set nowrap
-set smarttab
+set    cursorline
+set    showmatch
+set    nowrap
+set    smarttab
 " set foldmethod=syntax
-set shiftwidth =4
-set tabstop    =4
-set noexpandtab
-set ignorecase smartcase
-set lcs        =tab:▸\ ,trail:·,eol:¬,nbsp:_
+set    shiftwidth =4
+set    tabstop    =4
+set    noexpandtab
+set    ignorecase smartcase
+set    lcs        =tab:▸\ ,trail:·,eol:¬,nbsp:_
 " set list
-set mouse      =a
-set nostartofline
-set lazyredraw 
-set hidden  
-set laststatus =2
-set autoindent
-set wildmenu
-set hlsearch
-set incsearch
-set autoread
-set relativenumber
-set timeoutlen =500
+set    mouse      =a
+set    nostartofline
+set    lazyredraw
+set    hidden
+set    laststatus =2
+set    autoindent
+set    wildmenu
+set    hlsearch
+set    incsearch
+set    autoread
+set    relativenumber
+set    timeoutlen =500
 syntax enable
+

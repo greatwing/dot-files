@@ -1,6 +1,7 @@
 # Path to your oh-my-zsh installation.
 #
 export ZSH=/$HOME/.oh-my-zsh
+screenfetch
 # tmux -2 attach &> /dev/null
 # if [[ ! $TERM =~ screen ]]; then
 # 	exec tmux -2
@@ -15,8 +16,8 @@ export PATH="$HOME/bin:/usr/local/bin:$PATH"
 source $ZSH/oh-my-zsh.sh
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-alias v="nvim"
-alias vim="nvim" 
+# alias v="nvim"
+# alias vim="nvim" 
 alias pdf="atril"
 alias tmux="tmux -2"
 alias s="sudo"
