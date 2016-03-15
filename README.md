@@ -1,19 +1,19 @@
 #dot-files
 
-Hello, Welcome , this is my configuration files directory repo - vim, tmux, etc..
 
-### Installation :
-Make sure you have git on the machine.
-Run the following commands :
+Installation :
+-------------------------
+####Make sure you have git on the machine.
+- `sudo apt-get install git`
+
+####Run the following commands :
 - `git clone http://github.com/greatwing/dot-files.git ~/`
-- `~/dot-files/install.sh`
+- `cd ./dot-files`
+- `./install.sh`
 
-	If working on neovim :
-- `mkdir -p ${XDG_CONFIG_HOME:=$HOME/.config}`
-- `ln -s ~/.vim $XDG_CONFIG_HOME/nvim`
-- `ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim`
+####Those are my configurations and my preferences and are used for my personal use.
 
-
-#### telnet -t vtnt nyancat.dakko.us
-#### NOTE - INSTALL.SH is BROEKN
-#### telnet nyancat.dakko.us 23
+For some nyan:
+--------------------------
+#### windows: telnet -t vtnt nyancat.dakko.us
+#### linux: telnet nyancat.dakko.us 23
