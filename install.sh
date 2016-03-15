@@ -5,9 +5,11 @@ sudo add-apt-repository ppa:gnome-terminator
 
 sudo apt-get update
 sudo apt-get install -y git curl xclip zsh vim tmux build-essential cmake make gcc python-dev ctags git-extras \
-	neovim python-pip python3-dev python3-pip terminator
+	neovim python-pip python3-dev python3-pip terminator #emacs
 
 sudo pip install neovim
+#git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d
+
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
@@ -18,7 +20,8 @@ ln -sf  $HOME/dot-files/.ycm_extra_conf.py $HOME/.ycm_extra_conf.py
 ln -sf  $HOME/dot-files/.ideavimrc $HOME/.ideavimrc
 ln -sf $HOME/dot-files/UltiSnips $HOME/.vim/UltiSnips
 ln -sf $HOME/dot-files/.zshrc $HOME/.zshrc
-
+ln -sf $HOME/dot-files/.zshrc $HOME/.zshrc
+ln -sf $HOME/dot-files/.spacemacs $HOME/.spacemacs
 
 vim +PlugInstall +qall
 
