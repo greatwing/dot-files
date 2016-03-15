@@ -1,311 +1,282 @@
-" Hey There! 
-" Created By:  Mor Zusman @ mor.zusmann@gmail.com
+" /*
+"  * init.vim
+"  *
+"  *      Author: greatwing - mor.zusmann@gmail.com
+"  */
+" INSTALLIONS:
+" Rememeber to compile the ycm setup file (--clang-complete for c/c++)
+" xclip for linux!
+" terminator terminal !
+" visit autofomat site to learn about the formaters
+" for python format install autopip8
 "
-"
-"
-" Notes: 
-" * ESC key is binded into j-j strike  
-" * Snips - Ctrl J for instant snip selection (it selects the first one)
-" * Ctrl-P - Jump between files .
-" * ,q - Jump between directories and files.
-" * ,e - Tag jump - Ctrl-N/P(to navigate) -> Enter to jump
-" * ,w - Gundo tree - undo tree
-" * ,r - Turn to Goyo mode (Goyo plugin)
-" * ,1/2/3../0 - Jump to Buffers 1 - 10 (1 - 0)
-" * ,a/d - Navigate to next/previous buffer
-" * BackSlash - switch between .h and .c* files
-" * ,,b - Build project.
-" * NeoVim - ,t - Open terminal
-" * ,r - Turn to Goyo mode (Goyo plugin)
-" * ,` - stop highlight , useful after search.
-" * ,ev - open .vimrc file.
-" * ,,  - Goto
-" * g->c (In nmode) - comment , g->c->c - uncomment.
-" * ,gs/w/p/e - Git status/write/push/edit.
-" * ,sd - Vertical split window.	
-" * ,sw - Horizontal split window.	
-" * Copy UltiSnaps Dir to .vim for more Cool snips! 	
-" Make sure to change inside the Ultisnaps your name&email ,
-" I may change it (pretty soon) with script that reads
-" those parameters from git.
-" * C-t , C-d - indent in insert mode.
-filetype off                  " required
-syntax enable
+"----------MICS---------------------"{{{1
+let maplocalleader                                  = ","
+map <space> \
 
+syntax on
+set ch=2
+let g:bufferline_echo = 1
+set showcmd
+set scrolloff  =10
+set noerrorbells
+set visualbell
+set clipboard+=unnamedplus
+set laststatus=2
+set nocursorline
+set showmatch
+set smarttab
+set shiftwidth =4
+set tabstop    =8
+set softtabstop =4
+set expandtab
+" set ignorecase smartcase
+set nostartofline
+set hidden
+set autoread
+set autowrite
+set wildmenu
+set wildignore=*.o,*.obj,*~,*.pyc,*.so,*.swp,tmp/
+set wildignore+=*.pdf,*.jpg,*.dmg,*.zip,*.png,*.gif,*DS_Store*
+set hlsearch
+set incsearch
+set noswapfile
+set nowritebackup
+set timeout
+set timeoutlen=500
+set ttimeout
+set ttimeoutlen=50
+set statusline=%t\ 
+set statusline+=[%{strlen(&fenc)?&fenc:'none'},
+set statusline+=%{&ff}]
+set statusline+=%h
+set statusline+=%m
+set statusline+=%r\ 
+set statusline+=%{fugitive#statusline()}\ 
+set statusline+=%y
+set statusline+=%=
+set statusline+=%l/%L
+"-------------VIM-VER-CONFIG--------"{{{1}
 
-
-"-----------NeoVIM-Config------------"
 if has('nvim')
 	let s:editor_root=expand("~/.nvim")
-	tnoremap <C-h> <C-\><C-n><C-w>h
-	tnoremap <C-j> <C-\><C-n><C-w>j
-	tnoremap <C-k> <C-\><C-n><C-w>k
-	tnoremap <C-l> <C-\><C-n><C-w>l
-	tnoremap jj    <C-\><C-n>
-	nnoremap <leader>t         : belowright vsp term://zsh<CR>
-	autocmd BufEnter term://* startinsert
-	" let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+	tnoremap jk    <C-\><C-n>
+	nnoremap <space>t         : belowright vsp term://zsh<CR>
+	
 else
 	let s:editor_root=expand("~/.vim")
 	set ttyfast
-	set nocompatible " be iMproved, required
+	set nocompatible 
 	set t_vb=
 endif
-
-
-
-"-----------GVIM-Config--------------"
 if !has('gui_running')
 	set t_Co=256
+else
+    set guifont=Liberation\ Mono\ 12
 end
 
 
-
-"-----------PlugIns------------------"
+"----------PLUG---------------------"{{{1}
 call plug#begin('~/.vim/plugged')
-" Plugin Manager
-" Plugin 'VundleVim/Vundle.vim'
-"Git pluging - see notes
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-" CPP hl
-Plug 'octol/vim-cpp-enhanced-highlight'
-" Alignment plugin
-Plug 'godlygeek/tabular'
-Plug 'junegunn/vim-easy-align'
-" FileExplorer for vim
 Plug 'scrooloose/nerdtree'
-" Markdown plugin for vim
-Plug 'plasticboy/vim-markdown'
-" colorscheme
+" Plug 'Konfekt/FastFold'
 Plug 'bling/vim-bufferline'
-Plug 'junegunn/goyo.vim'
-Plug 'chriskempson/vim-tomorrow-theme'
-" Undo tree - very useful
-Plug 'mbbill/undotree'
-" Surround Plug , see notes
+Plug 'Chiel92/vim-autoformat'
+Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-surround'
-Plug 'mhinz/vim-signify'
-" Powerfull snippets plugin
-Plug 'SirVer/ultisnips'
-" Enable us to repeat alot of things with '.'
+" Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
-" optinal - vimtex - latex plugin for vim , see their page for details
-" plugin 'lervag/vimtex'
-" Best autocomplete engine for vim 
 Plug 'Valloric/YouCompleteMe'
-Plug 'Valloric/ListToggle'
-" Snippets collection for vim
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'honza/vim-snippets'
-" Comments plugin see notes.
+Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-commentary'
-" Automatically completes brackets
 Plug 'Raimondi/delimitMate'
-" Fuzzy file finder
-Plug 'kien/ctrlp.vim'
-" Function finder
-Plug 'majutsushi/tagbar'
-" c/pp plugins
-Plug 'vim-scripts/a.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'terryma/vim-expand-region'
+Plug 'SirVer/ultisnips'
+Plug 'junegunn/vim-peekaboo'
+" Plug 'vim-scripts/a.vim'
 Plug 'benekastah/neomake'
 call plug#end()            " required
 " System default for mappings is now the "," character
 
-"-----------LeaderMap----------------"
-let mapleader                                       = ","
-let maplocalleader                                  = ","
-let g:bufferline_echo                               = 0
 
+"----------MISC-PLUGINS------------"{{{1}
+let g:vim_markdown_folding_disabled = 1
 
-"-----------GoyoConfig---------------"
-let g:goyo_width                                    = 160
-let g:goyo_height                                   = 90
+let g:expand_region_text_objects = {
+      \ 'iw'  :0,
+      \ 'iW'  :0,
+      \ 'i"'  :1,
+      \ 'i''' :1,
+      \ 'i]'  :1,
+      \ 'ib'  :1,
+      \ 'ab'  :1,
+      \ 'aB'  :1,
+      \ 'iB'  :1,
+      \ 'ai'  :1,
+      \ 'ip'  :0,
+      \ }
+let g:peekaboo_window = 'vertical botright  60new'
+let g:peekaboo_compact = 0
 
-
-
-"-----------UltiSnips----------------"
-let g:UltiSnipsJumpForwardTrigger                   = '<C-J>'
-let g:UltiSnipsJumpBackwardTrigger                  = '<C-K>'
-let g:UltiSnipsExpandTrigger                        = '<C-J>'
-let g:UltiSnipsListSnippets                         = '<C-L>'
-
-
-
-"----------UndoTree-Plugin--------------"
-let g:undotree_WindowLayout                                  = 3
-let g:undotree_SetFocusWhenToggle = 1
-
-
-
-"----------NerdTree-Plugin-----------"
-let g:NERDTreeShowHidden                            = 0
-let g:NERDTreeWinPos                                = "right"
-" Don't need window after selecting file
-let g:NERDTreeQuitOnOpen                            = 1
-" Width of window
-let g:NERDTreeWinSize                               = 40
-
-
-
-"----------Vim-Syntax----------------"
-let g:vim_markdown_folding_disabled                 = 1
-let g:cpp_class_scope_highlight                     = 1
-
-
-
-"----------You-Complete-Me-----------"
+"----------YOU-COMPLETE-ME---------"{{{1}
 let g:ycm_seed_identifiers_with_syntax              = 1
 let g:ycm_global_ycm_extra_conf                     = '~/.ycm_extra_conf.py'
-let g:lt_height                                     = 5
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_warning_symbol                            = '>'
 let g:ycm_complete_in_comments                      = 1
 let g:ycm_add_preview_to_completeopt                = 1
 let g:ycm_always_populate_location_list             = 1
 let g:ycm_collect_identifiers_from_tags_files       = 1
+let g:ycm_key_list_select_completion = [ '<Down>', '<C-j>']
+let g:ycm_key_list_previous_completion = [ '<Up>', '<C-k>']
+
+
+"----------ULTISNIPS---------------"{{{1}
+let g:UltiSnipsExpandTrigger                        = '<c-l>'
+let g:UltiSnipsJumpForwardTrigger                   = '<c-l>'
+let g:UltiSnipsJumpBackwardTrigger                  = '<c-h>'
+
+"----------NERDTREE-PLUGIN---------"{{{1}
+let g:NERDTreeShowHidden = 0
+let g:NERDTreeQuitOnOpen                            = 1
+let NERDTreeIgnore=['\.git','\.pyc' ]
+let g:NERDTreeWinSize                               = 40
+
+function! NERDTreeToggleInCurDir()
+    if (exists("t:NERDTreeBufName") && bufwinnr(t:NERDTreeBufName) != -1)
+        exe ":NERDTreeClose"
+    else
+            exe ":NERDTreeFind"
+    endif
+endfunction
+
+"----------ColorScheme-------------"{{{1}
+colorscheme PaperColor
+let g:indentLine_color_term = 239
+let g:indentLine_char = '┊'
 
 
 
-"----------Must----------------------"
-filetype plugin indent on    " required
+
+"----------FUGITIVE-PLUGIN---------"{{{1}
+nnoremap <space>gs : Gstatus<cr>
+nnoremap <space>ge : Gedit<cr>
+nnoremap <space>gw : Gwrite<cr>
+nnoremap <space>gr : Gread<cr>
+nnoremap <space>gd :Gdiff<cr>
+nnoremap <space>gc :Commits<cr>
 
 
 
-"-------------------Ignore----------"
-set wildignore +=*/.git/*,*/.hg/*,*/.svn/*
-
-
-
-"----------Disable-Noise-------------"
-" No sound on errors
-set noerrorbells
-set visualbell
-
-
-
-"----------UI-Customize--------------"
-" Set position indicator on bottom right
-set ruler
-set number
-" Show command in last line, usually on by default
-set showcmd
-" Minimum number of lines that will always be above/below cursor
-set scrolloff  =19
-
-
-
-"----------ColorScheme---------------"
-" colorscheme specifications
-set background =dark
-colorscheme Tomorrow-Night-Bright
-
-
-
-"----------Fugitive-Plugin-----------"
-" Remap for fugitive commands
-nnoremap <leader>gs : Gstatus<cr>
-nnoremap <leader>ge : Gedit<cr>
-nnoremap <leader>gw : Gwrite<cr>
-nnoremap <leader>gr : Gread<cr>
-nnoremap <leader>gp : Gpush<CR>
-
-
-
-"----------Window-Customization------"
-nnoremap <C-l>      : wincmd l<CR>
-nnoremap <C-k>      : wincmd k<CR>
-nnoremap <C-j>      : wincmd j<CR>
-nnoremap <C-h>      : wincmd h<CR>
-
-
-
-"----------MappingCustomization------"
-" Laziness
-nnoremap ; :
-nnoremap gh         : bp<cr>
-nnoremap gl         : bn<cr>
-nnoremap gx         : bd!<cr>
-nnoremap <leader>` : nohlsearch<cr>
-nnoremap <leader>sd        : aboveleft vsp<cr>
-nnoremap <leader>ss        : aboveleft sp<cr>
-nnoremap <leader>sw        : belowright sp<cr>
-nnoremap <leader>sa        : belowright vsp<cr>
-nnoremap <leader>q         : NERDTreeToggle<CR>
-nnoremap <leader>w         : UndotreeToggle<CR>
-nnoremap <leader>e         : TagbarOpenAutoClose<CR>
-nnoremap <leader>v         : e $MYVIMRC<CR>
-nnoremap gT  : YcmCompleter GoTo<CR>
-xmap ga                <Plug>(EasyAlign)
-nmap ga                <Plug>(EasyAlign)
-nnoremap J							3j	
-nnoremap K							3k
-vnoremap J							3j
-vnoremap K							3k
+"----------MAPPINGCUSTOMIZATION----"{{{1}
+nnoremap <space>wl      : wincmd l<CR>
+nnoremap <space>o :only<cr>
+nnoremap <space>wk      : wincmd k<CR>
+nnoremap <space>wj      : wincmd j<CR>
+nnoremap <space>wh      : wincmd h<CR>
+nnoremap <space>w-      : aboveleft sp<cr>
+nnoremap <space>w\       : aboveleft vsp<cr>
+nnoremap <space>ww :Windows<cr>
+nnoremap <space>wr :wincmd r<cr>
 nnoremap <left>            :3wincmd <<cr>
 nnoremap <right>           :3wincmd ><cr>
 nnoremap <up>              :3wincmd +<cr>
 nnoremap <down>            :3wincmd -<cr>
-nnoremap <Enter>					:
-vnoremap    > <gV
-vnoremap    > >gV
-nnoremap g= : normal! mmgg=G`m<CR>
-nnoremap <leader><leader>v :so % <cr>
-let g:lt_location_list_toggle_map   = '<C-z>'
-let g:lt_quickfix_list_toggle_map   = '<C-c>'
+nnoremap <space>wq :q<cr>
+nnoremap <space>wc :q<cr>
+nnoremap <C-j> <C-d>
+nnoremap <C-k> <C-u>
+
+nnoremap <C-l> :bnext<cr>
+nnoremap <C-h> :bprev<cr>
+nnoremap <space>bx  : bd!<cr>
+nnoremap <space>bb  :Buffers<cr>
+nnoremap <space>bp  :bprev<cr>
+nnoremap <space>bn  :bnext<cr>
+nnoremap <space>bt :BTags<cr>
+
+nnoremap <space>` : nohlsearch<cr>
+
+nnoremap <C-n> :cnext<cr>
+nnoremap <C-p> :cprev<cr>
+
+nnoremap <space><tab> :e#<cr>
+
+nnoremap <space>s :w<cr>
+nnoremap <space>q :q<cr>
+
+nnoremap <space>m          : e $MYVIMRC<CR>
+
+nnoremap <space>fd  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+nnoremap <space>ff  :FZF ~<cr>
+nnoremap <space>fg  :GitFiles<cr>
+nnoremap <space>fl  :Lines<cr>
+nnoremap <space>h :History<cr>
 
 
+nnoremap <space>a :normal! zA<cr>
 
-"------------AutoCommand-Config------"
-au BufRead,BufNewFile *.{c*,h*} : nnoremap <BS>  : A<CR>
-au BufRead,BufNewFile *.{c*,h*} : nnoremap <leader><leader>b :Neomake cmake<CR>
-autocmd VimEnter *
-			\ let &statusline='%{bufferline#refresh_status()}'
-			\ .bufferline#get_status_string()
+xnoremap    < <gv
+xnoremap    > >gv
+
+map L <Plug>(expand_region_expand)
+map H <Plug>(expand_region_shrink)
+
+nnoremap <BS>         : call NERDTreeToggleInCurDir()<CR>
+
+"----------AUTOCOMMAND-CONFIG------"{{{1}
+" au BufRead,BufNewFile *.{c*,h*} : nnoremap <BS>  : A<CR>
+au BufRead,BufNewFile *.{c*,h*} : nnoremap <space><space>b :Neomake cmake<CR>
+" au BufRead,BufNewFile *.{c*} set foldmethod=indent
+autocmd! BufRead,BufNewFile,BufEnter *.{py,html,js,c*,h*} :IndentLinesReset
+autocmd! BufWritePost *.py Neomake flake8
+au! BufRead,BufNewFile *.py :nnoremap <space><space> :Autoformat<cr>:RemoveTrailingSpaces<cr>:w<cr>
 
 
-
-"------------NeoMake-Configuration---"
+"----------NEOMAKE-PLUG------------"{{{1}
 let g:neomake_cpp_cmake_maker = {
 			\ 'args': ['-C build']}
 let g:neomake_cpp_enabled_makers = ['cmake']
+let g:neomake_open_list=2
+let g:neomake_verbose=2
+let g:neomake_place_sign=0
+let g:neomake_list_height = 2
+
+"----------FZF-----CONFIGURATION---"{{{1}
+
+let g:fzf_action = {
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+let g:fzf_layout = { 'down': '~30%' }
+let g:fzf_buffers_jump = 1
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+autocmd VimEnter * command! Colors
+  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'})
 
 
-
-"------------Escape-Alternative------"
-nnoremap Q    <Nop>
-inoremap jj   <esc>
-cnoremap jj   <esc>
+"----------ESCAPE-ALTERNATIVE------"{{{1}
+nmap Q    @q
+inoremap jk   <esc>
+cnoremap jk   <esc>
 command! Q    q " Bind :Q to :q
 command! Qall qall
 command! QA   qall
+command! So  so %
+command! SO so %
+command! WQ   wq
 command! E    e
 command! Wq   wq
 command! WW   w !sudo tee % > /dev/null
 command! W    w
-
-
-
-"------------Vim-Functioning---------"
-" set encoding =utf-8
-set cursorline
-set showmatch
-set nowrap
-set smarttab
-set foldmethod=marker
-set shiftwidth =4
-set tabstop    =4
-set noexpandtab
-set ignorecase smartcase
-set nostartofline
-set hidden
-set laststatus =2
-set autoread
-set autowrite
-set wildmenu
-set hlsearch
-set incsearch
-set relativenumber
-set timeoutlen =500
-set pastetoggle=<F2>
-
+nmap <space>p "+p
+nmap <space>y "+y
+vmap <space>p "+p
+vmap <space>y "+y
 
