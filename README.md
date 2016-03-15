@@ -13,5 +13,7 @@ Run the following commands :
 - `ln -s ~/.vim $XDG_CONFIG_HOME/nvim`
 - `ln -s ~/.vimrc $XDG_CONFIG_HOME/nvim/init.vim`
 
+
 #### telnet -t vtnt nyancat.dakko.us
+#### NOTE - INSTALL.SH is BROEKN
 #### telnet nyancat.dakko.us 23
