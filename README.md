@@ -1,6 +1,27 @@
 #dot-files
 
 
+Requirements : 
+-------------------------
+#####git 
+#####curl 
+#####xclip 
+#####zsh 
+#####vim 
+#####tmux 
+#####build-essential 
+#####cmake 
+#####make 
+#####gcc 
+#####python-dev 
+#####ctags 
+#####git-extras 
+#####neovim 
+#####python-pip 
+#####python3-dev 
+#####python3-pip 
+#####terminator 
+#####emacs
 Installation :
 -------------------------
 ####Make sure you have git on the machine.

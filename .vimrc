@@ -135,6 +135,8 @@ let g:ycm_always_populate_location_list             = 1
 let g:ycm_collect_identifiers_from_tags_files       = 1
 let g:ycm_key_list_select_completion = [ '<Down>', '<C-j>']
 let g:ycm_key_list_previous_completion = [ '<Up>', '<C-k>']
+" let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 
 "----------ULTISNIPS---------------"{{{1}
@@ -238,7 +240,6 @@ au BufRead,BufNewFile *.{c*,h*} : nnoremap <space><space>b :Neomake cmake<CR>
 autocmd! BufRead,BufNewFile,BufEnter *.{py,html,js,c*,h*} :IndentLinesReset
 autocmd! BufWritePost *.py Neomake flake8
 au! BufRead,BufNewFile *.py :nnoremap <space><space> :Autoformat<cr>:RemoveTrailingSpaces<cr>:w<cr>
-
 
 "----------NEOMAKE-PLUG------------"{{{1}
 let g:neomake_cpp_cmake_maker = {

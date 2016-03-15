@@ -1,21 +1,6 @@
-# Path to your oh-my-zsh installation.
-#
-# Base16 Shell
-# BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
-# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 export ZSH=/$HOME/.oh-my-zsh
-# tmux -2 attach &> /dev/null
-# if [[ ! $TERM =~ screen ]]; then
-# 	exec tmux -2
-# fi
-# in order to install tldr :
-# mkdir -p ~/bin
-# curl -o ~/bin/tldr https://raw.githubusercontent.com/raylee/tldr/master/tldr
-# chmod +x ~/bin/tldr
 ZSH_THEME="avit"
-
 plugins=(git colored-man-pages colorize cp extract web-search git-extras command-not-found vim)
-
 fd() {
   local dir
   dir=$(find ${1:-*} -path '*/\.*' -prune \
@@ -79,7 +64,7 @@ alias gd="git diff"
 alias ga="git add"
 alias pic="eom"
 alias c="clear"
-alias vimrc="sudo vim ~/.vimrc"
+alias vimrc="vim ~/.vimrc"
 alias updot="cp -f ~/.vimrc ~/.zshrc ~/.tmux.conf ~/dot-files/"
 alias so="source ~/.zshrc"
 
