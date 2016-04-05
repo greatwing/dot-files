@@ -1,11 +1,20 @@
 nnoremap Q  <Nop>
 vnoremap i  <Esc>
-inoremap jj <esc>
-cnoremap jj <esc>
-nnoremap J  3j
-nnoremap K  3k
-vnoremap J  3j
-vnoremap K  3k
+inoremap jk <esc>
+cnoremap jk <esc>
+nnoremap <space>w-      :sp<cr>
+nnoremap <space>w\       :vsp<cr>
+nnoremap <space>wh      <C-w>h 
+nnoremap <space>wl     <C-w>l 
+nnoremap <space>wj    <C-w>j 
+nnoremap <space>wk    <C-w>k
+nnoremap <space>wc :q<cr>
+nnoremap <C-j> <C-d>
+nnoremap <C-k> <C-u>
+nnoremap <Tab> :e#<CR>
+set visualbell
+set noerrorbells
+set surround
 set relativenumber
 set showmode
 set matchpairs

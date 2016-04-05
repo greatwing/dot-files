@@ -116,6 +116,7 @@ values."
     (diminish 'helm-gtags-mode))
   (define-key global-map "\C-cc" 'org-capture)
 
+
 )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -126,6 +127,7 @@ values."
  ;; If there is more than one, they won't work right.
  '(display-time-24hr-format t)
  '(display-time-mode t)
+ '(org-todo-keywords (quote ((sequence "TODO" "TIL" "DONE"))))
  '(paradox-github-token t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
