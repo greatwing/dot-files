@@ -1,21 +1,12 @@
 " /*
 "  * init.vim
 "  *
-"  *      Author: greatwing - mor.zusmann@gmail.com
 "  */
-" INSTALLIONS:
-" Rememeber to compile the ycm setup file (--clang-complete for c/c++)
-" xclip for linux!
-" terminator terminal !
-" visit autofomat site to learn about the formaters
-" for python format install autopip8
+"   things that i need to include inside : .vim folder + .plugged + inside /c:/programs files / vim/ vim files / autoload/ + vim it self
 "
 "----------MICS---------------------"{{{1
+
 let mapleader                                  = "\<Space>"
-" Neovim-qt Guifont command
-command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>") | let g:Guifont="<args>"
-" Set the font to DejaVu Sans Mono:h13
-Guifont Inconsolata LGC for Powerline:h12
 
 syntax on
 set ch=2
@@ -57,71 +48,44 @@ set statusline+=%=
 set statusline+=%l/%L
 "-------------VIM-VER-CONFIG--------"{{{1}
 
-if has('nvim')
-    let s:editor_root=expand("~/.nvim")
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    tnoremap jk    <C-\><C-n>:bd!<cr>
-    nnoremap <leader>t         : belowright vsp term://zsh<CR>
-
-else
-    let s:editor_root=expand("~/.vim")
-    set ttyfast
-    set nocompatible
-    set t_vb=
-endif
+let s:editor_root=expand("~/.vim")
+set ttyfast
+set nocompatible
+set t_vb=
 set t_Co=256
-set guifont=Inconsolata\ Mono\ 15
 
 
 "----------PLUG---------------------"{{{1}
 call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
-Plug 'jmcantrell/vim-virtualenv'
-" Plug 'Konfekt/FastFold'
 Plug 'bling/vim-bufferline'
-Plug 'Chiel92/vim-autoformat'
-Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-surround'
-" Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-repeat'
-Plug 'Valloric/YouCompleteMe'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'jnurmine/Zenburn'
-Plug 'honza/vim-snippets'
+Plug 'Quramy/tsuquyomi'
 Plug 'plasticboy/vim-markdown'
 Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-" Plug 'terryma/vim-expand-region'
 Plug 'SirVer/ultisnips'
-Plug 'junegunn/vim-peekaboo'
 Plug 'vim-scripts/a.vim'
-Plug 'benekastah/neomake'
+Plug 'kana/vim-textobj-user'                                         
+Plug 'https://github.com/clausreinke/typescript-tools.vim.git'
+Plug 'kana/vim-textobj-function'                       
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'Valloric/YouCompleteMe'
+Plug 'https://github.com/leafgarland/typescript-vim.git'            
+Plug 'thinca/vim-textobj-function-javascript'                       
+Plug 'burnettk/vim-angular'
 call plug#end()            " required
 " System default for mappings is now the "," character
 
-
-"----------MISC-PLUGINS------------"{{{1}
-let g:vim_markdown_folding_disabled = 1
-
-let g:peekaboo_window = 'vertical botright  60new'
-let g:peekaboo_compact = 0
-
-"----------YOU-COMPLETE-ME---------"{{{1}
-let g:ycm_seed_identifiers_with_syntax              = 1
-let g:ycm_global_ycm_extra_conf                     = '~/.ycm_extra_conf.py'
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_warning_symbol                            = '>'
-let g:ycm_complete_in_comments                      = 1
-let g:ycm_add_preview_to_completeopt                = 1
-let g:ycm_always_populate_location_list             = 1
-let g:ycm_collect_identifiers_from_tags_files       = 1
-let g:ycm_key_list_select_completion = [ '<Down>', '<C-j>']
-let g:ycm_key_list_previous_completion = [ '<Up>', '<C-k>']
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
 
 "----------ULTISNIPS---------------"{{{1}
@@ -144,10 +108,9 @@ function! NERDTreeToggleInCurDir()
 endfunction
 
 "----------ColorScheme-------------"{{{1}
-colors zenburn
-let g:indentLine_color_term = 239
-let g:indentLine_char = '┊'
 
+set guifont=Consolas:h14:cANSI
+colorscheme Zenburn
 
 
 
@@ -202,12 +165,6 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>mm          : e $MYVIMRC<CR>
 
 nnoremap <leader>o :only<cr>
-nnoremap <leader>fd  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-nnoremap <leader>ff  :FZF ~<cr>
-nnoremap <leader>fg  :GitFiles<cr>
-nnoremap <leader>fl  :Lines<cr>
-nnoremap <leader>h :History<cr>
 
 nmap <leader>p "+p
 nmap <leader>y "+y
@@ -220,35 +177,6 @@ xnoremap    > >gv
 
 
 nnoremap <tab>         : call NERDTreeToggleInCurDir()<CR>
-
-"----------AUTOCOMMAND-CONFIG------"{{{1}
-" au BufRead,BufNewFile *.{c*} set foldmethod=indent
-au! BufRead,BufNewFile *.{c*,h*} : nnoremap <BS>  : A<CR>
-au! BufRead,BufNewFile *.{c*,h*} : nnoremap <leader><leader>b :Neomake cmake<CR>
-au! BufRead,BufNewFile,BufEnter *.{py,html,js,c*,h*} :IndentLinesReset
-au! BufRead,BufNewFile * :nnoremap <leader>fa :Autoformat<cr>
-au! BufWritePost *.py Neomake flake8
-
-"----------NEOMAKE-PLUG------------"{{{1}
-let g:neomake_cpp_cmake_maker = {
-            \ 'args': ['-C build']}
-let g:neomake_cpp_enabled_makers = ['cmake']
-let g:neomake_open_list=2
-let g:neomake_verbose=2
-let g:neomake_place_sign=0
-let g:neomake_list_height = 2
-
-"----------FZF-----CONFIGURATION---"{{{1}
-
-let g:fzf_action = {
-            \ 'ctrl-x': 'split',
-            \ 'ctrl-v': 'vsplit' }
-let g:fzf_layout = { 'down': '~30%' }
-let g:fzf_buffers_jump = 1
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-autocmd VimEnter * command! Colors
-            \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'})
-
 
 "----------ESCAPE-ALTERNATIVE------"{{{1}
 nmap Q    @q
