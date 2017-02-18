@@ -6,7 +6,7 @@
 "
 "----------MICS---------------------"{{{1
 
-let mapleader                                  = "\<Space>"
+let mapleader                                  = "'"
 
 syntax on
 set ch=2
@@ -32,6 +32,7 @@ set autowrite
 set wildmenu
 set wildignore=*.o,*.obj,*~,*.pyc,*.so,*.swp,tmp/
 set wildignore+=*.pdf,*.jpg,*.dmg,*.zip,*.png,*.gif,*DS_Store*
+set wildignore+=*.map,*.js
 set hlsearch
 set incsearch
 set noswapfile
@@ -62,30 +63,39 @@ Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-bufferline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'https://github.com/jiangmiao/auto-pairs'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'jnurmine/Zenburn'
 Plug 'Quramy/tsuquyomi'
 Plug 'plasticboy/vim-markdown'
+Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'tpope/vim-unimpaired'
 Plug 'SirVer/ultisnips'
 Plug 'vim-scripts/a.vim'
 Plug 'kana/vim-textobj-user'                                         
-Plug 'https://github.com/clausreinke/typescript-tools.vim.git'
 Plug 'kana/vim-textobj-function'                       
+Plug 'dracula/vim'
 Plug 'Quramy/vim-js-pretty-template'
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe' 
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/leafgarland/typescript-vim.git'            
 Plug 'thinca/vim-textobj-function-javascript'                       
 Plug 'burnettk/vim-angular'
 call plug#end()            " required
 " System default for mappings is now the "," character
 
+
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = ''
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
+autocmd FileType typescript JsPreTmpl html
+autocmd FileType typescript syn clear foldBraces
+autocmd FileType typescript nnoremap <leader>i :TsuImport<cr>
 
 
 "----------ULTISNIPS---------------"{{{1}
@@ -93,10 +103,21 @@ let g:UltiSnipsExpandTrigger                        = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger                   = '<c-l>'
 let g:UltiSnipsJumpBackwardTrigger                  = '<c-h>'
 
+"----------YCM------PLUGIN---------"{{{1}
+let g:ycm_seed_identifiers_with_syntax = 1
+ let g:ycm_add_preview_to_completeopt                = 1
+let g:ycm_always_populate_location_list             = 1
+let g:ycm_collect_identifiers_from_tags_files       = 1
+let g:ycm_key_list_select_completion = [ '<Down>', '<C-j>' ]
+let g:ycm_key_list_previous_completion = [ '<Up>', '<C-k>' ]
+
+
 "----------NERDTREE-PLUGIN---------"{{{1}
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeShowHidden = 0
 let g:NERDTreeQuitOnOpen                            = 1
-let NERDTreeIgnore=['\.git','\.pyc' ]
+let NERDTreeIgnore=['\.git','\.pyc','\.js' ]
 let g:NERDTreeWinSize                               = 40
 
 function! NERDTreeToggleInCurDir()
@@ -110,7 +131,8 @@ endfunction
 "----------ColorScheme-------------"{{{1}
 
 set guifont=Consolas:h14:cANSI
-colorscheme Zenburn
+colorscheme PaperColor
+set background=light
 
 
 
@@ -122,73 +144,78 @@ nnoremap <leader>gr : Gread<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gc :Commits<cr>
 
-
-
 "----------MAPPINGCUSTOMIZATION----"{{{1}
-nnoremap <leader>wl      : wincmd l<CR>
-nnoremap <leader>wk      : wincmd k<CR>
-nnoremap <leader>wj      : wincmd j<CR>
-nnoremap <leader>wh      : wincmd h<CR>
-nnoremap <leader>w-      : aboveleft sp<cr>
-nnoremap <leader>w\       : aboveleft vsp<cr>
-nnoremap <leader>ww :Windows<cr>
-nnoremap <leader>wr :wincmd r<cr>
-nnoremap <left>            :3wincmd <<cr>
-nnoremap <right>           :3wincmd ><cr>
-nnoremap <up>              :3wincmd +<cr>
-nnoremap <down>            :3wincmd -<cr>
-nnoremap <leader>wq :q<cr>
-nnoremap <leader>wc :q<cr>
-nnoremap <C-j> <C-d>
-nnoremap <C-k> <C-u>
+nnoremap <silent><leader>wl      : wincmd l<CR>
+nnoremap <silent><leader>wk      : wincmd k<CR>
+nnoremap <silent><leader>wj      : wincmd j<CR>
+nnoremap <silent><leader>wh      : wincmd h<CR>
+nnoremap <silent><leader>w-      : aboveleft sp<cr>
+nnoremap <silent><leader>w\       : aboveleft vsp<cr>
+nnoremap <silent><leader>ww :Windows<cr>
+nnoremap <silent><leader>wr :wincmd r<cr>
+nnoremap <silent><left>            :3wincmd <<cr>
+nnoremap <silent><right>           :3wincmd ><cr>
+nnoremap <silent><up>              :3wincmd +<cr>
+nnoremap <silent><down>            :3wincmd -<cr>
+nnoremap <silent><leader>wq :q<cr>
+nnoremap <silent><leader>wc :q<cr>
+nnoremap <silent><C-j> <C-d>
+nnoremap <silent><C-k> <C-u>
 
-nnoremap <C-l> :bnext<cr>
-nnoremap <C-h> :bprev<cr>
-nnoremap <leader>bx  : bd!<cr>
-nnoremap <leader>bc  : bd!<cr>
-nnoremap <leader>bk  : bd!<cr>
-nnoremap <leader>bb  :Buffers<cr>
-nnoremap <leader>bp  :bprev<cr>
-nnoremap <leader>bn  :bnext<cr>
-nnoremap <leader>bt :BTags<cr>
+nnoremap <silent><C-l> :bnext<cr>
+nnoremap <silent><C-h> :bprev<cr>
+nnoremap <silent> <leader>bx  : bd!<cr>
+nnoremap <silent> <leader>bc  : bd!<cr>
+nnoremap <silent><leader>bk  : bd!<cr>
+nnoremap <silent><leader>bb  :Buffers<cr>
+nnoremap <silent><leader>bp  :bprev<cr>
+nnoremap <silent><leader>bn  :bnext<cr>
+nnoremap <silent><leader>bt :BTags<cr>
+nnoremap zz :Buffers<cr>
 
-nnoremap <leader>` : nohlsearch<cr>
+nnoremap <silent><leader>` : nohlsearch<cr>
 
-nnoremap <C-n> :cnext<cr>
-nnoremap <C-p> :cprev<cr>
+nnoremap <silent><C-n> :cnext<cr>
+nnoremap <silent><C-p> :cprev<cr>
 
-nnoremap <leader><tab> :e#<cr>
+nnoremap <silent><tab> :e#<cr>
 
-nnoremap <leader>s :w<cr>
-nnoremap <leader>q :q<cr>
+nnoremap <silent><leader>s :w<cr>
+nnoremap <silent><leader>q :q<cr>
 
-nnoremap <leader>mm          : e $MYVIMRC<CR>
+nnoremap <silent><leader>mm          : e $MYVIMRC<CR>
 
-nnoremap <leader>o :only<cr>
+nnoremap <silent><leader>o :only<cr>
 
-nmap <leader>p "+p
-nmap <leader>y "+y
-vmap <leader>p "+p
-vmap <leader>y "+y
+nmap <silent><leader>p "+p
+nmap <silent><leader>y "+y
+vmap <silent><leader>p "+p
+vmap <silent><leader>y "+y
 
-nnoremap <leader>a :normal! zA<cr>
+nnoremap <silent><leader>a :normal! zA<cr>
 xnoremap    < <gv
 xnoremap    > >gv
 
 
-nnoremap <tab>         : call NERDTreeToggleInCurDir()<CR>
+nnoremap <silent>`        : call NERDTreeToggleInCurDir()<CR>
 
 "----------ESCAPE-ALTERNATIVE------"{{{1}
 nmap Q    @q
-inoremap jk   <esc>
-cnoremap jk   <esc>
+inoremap <silent>jk   <esc>
+cnoremap <silent>jk   <esc>
 command! Q    q " Bind :Q to :q
 command! Qall qall
 command! QA   qall
 command! So  so %
 command! SO so %
 command! WQ   wq
+command! WW   w !sudo tee % > /dev/null
 command! E    e
 command! Wq   wq
-command! WW   w !sudo tee % > /dev/null
 command! W    w
+
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif"`'")"'")
+
