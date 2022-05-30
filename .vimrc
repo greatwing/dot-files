@@ -114,7 +114,8 @@ let g:ycm_key_list_select_completion = ['<TAB>', '<Down>','<Enter>']
 let g:ycm_auto_trigger = 1
 let g:ycm_always_populate_location_list             = 1
 let g:ycm_collect_identifiers_from_tags_files       = 1
-let g:ycm_key_list_select_completion = [ '<Down>', '<C-j>' ]
+"let g:ycm_key_list_select_completion = [ '<Down>', '<C-j>' ]"
+let g:ycm_confirm_extra_conf = 1
 let g:ycm_key_list_previous_completion = [ '<Up>', '<C-k>' ]
 
 
@@ -191,7 +192,8 @@ nnoremap <silent><tab> :e#<cr>
 nnoremap <silent><leader>s :w<cr>
 nnoremap <silent><leader>q :q<cr>
 
-nnoremap <silent><C-b> :YcmCompleter GoToDefinition<cr>
+nnoremap <silent><C-b> :YcmCompleter GoTo<cr>
+nnoremap <silent><space> :YcmCompleter GoToReferences<cr>
 
 nnoremap <silent><leader>mm          : e $MYVIMRC<CR>
 
