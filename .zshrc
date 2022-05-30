@@ -1,8 +1,8 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/mzeus/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="bullet-train"
+ZSH_THEME="wuffers"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -27,7 +27,7 @@ ZSH_THEME="bullet-train"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -46,11 +46,10 @@ ZSH_THEME="bullet-train"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git archlinux git git-extras)
+plugins=(git git-extras)
 
 # User configuration
-
-  export PATH="/home/mzeus/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
+export PATH="~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -60,10 +59,10 @@ export LANG=en_US.UTF-8
 export LC_ALL="en_US.UTF-8"
 
 # Preferred editor for local and remote sessions
-  export EDITOR='nvim'
+export EDITOR='nvim'
 
 # Compilation flags
-export ARCHFLAGS="-arch x86_64"
+#export ARCHFLAGS="-arch x86_64"
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/dsa_id"
@@ -77,7 +76,7 @@ alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
 alias pdf="atril"
 alias tmux="tmux -2"
-alias vim="nvim-qt --geometry 1240x720 &"
+alias vim="~/nvim.appimage"
 alias s="sudo"
 alias x="exit"
 alias g="git"
@@ -97,3 +96,19 @@ alias vimrc="vim ~/.vimrc"
 alias updot="cp -f ~/.vimrc ~/.zshrc ~/.tmux.conf ~/dot-files/"
 alias so="source ~/.zshrc"
 alias pro="cd ~/Projects/"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('~/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "~/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "~/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="~/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

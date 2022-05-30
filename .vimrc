@@ -15,6 +15,7 @@ set showcmd
 set scrolloff  =10
 set noerrorbells
 set visualbell
+set autochdir
 set clipboard+=unnamedplus
 set laststatus=2
 set nocursorline
@@ -28,6 +29,7 @@ set ignorecase smartcase
 set nostartofline
 set hidden
 set autoread
+set number
 set autowrite
 set wildmenu
 set wildignore=*.o,*.obj,*~,*.pyc,*.so,*.swp,tmp/
@@ -63,6 +65,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-bufferline'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'numirias/semshi', { 'do': ':UpdateRemotePlugins' }
 Plug 'https://github.com/jiangmiao/auto-pairs'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'jnurmine/Zenburn'
@@ -102,10 +105,13 @@ autocmd FileType typescript nnoremap <leader>i :TsuImport<cr>
 let g:UltiSnipsExpandTrigger                        = '<c-l>'
 let g:UltiSnipsJumpForwardTrigger                   = '<c-l>'
 let g:UltiSnipsJumpBackwardTrigger                  = '<c-h>'
-
 "----------YCM------PLUGIN---------"{{{1}
 let g:ycm_seed_identifiers_with_syntax = 1
- let g:ycm_add_preview_to_completeopt                = 1
+let g:ycm_add_preview_to_completeopt                = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>','<Enter>']
+let g:ycm_auto_trigger = 1
 let g:ycm_always_populate_location_list             = 1
 let g:ycm_collect_identifiers_from_tags_files       = 1
 let g:ycm_key_list_select_completion = [ '<Down>', '<C-j>' ]
@@ -117,7 +123,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeShowHidden = 0
 let g:NERDTreeQuitOnOpen                            = 1
-let NERDTreeIgnore=['\.git','\.pyc','\.js' ]
+let NERDTreeIgnore=['__pycache__','\.git','\.pyc','\.js' ]
 let g:NERDTreeWinSize                               = 40
 
 function! NERDTreeToggleInCurDir()
@@ -132,7 +138,7 @@ endfunction
 
 set guifont=Consolas:h14:cANSI
 colorscheme PaperColor
-set background=light
+set background=dark
 
 
 
@@ -151,7 +157,6 @@ nnoremap <silent><leader>wj      : wincmd j<CR>
 nnoremap <silent><leader>wh      : wincmd h<CR>
 nnoremap <silent><leader>w-      : aboveleft sp<cr>
 nnoremap <silent><leader>w\       : aboveleft vsp<cr>
-nnoremap <silent><leader>ww :Windows<cr>
 nnoremap <silent><leader>wr :wincmd r<cr>
 nnoremap <silent><left>            :3wincmd <<cr>
 nnoremap <silent><right>           :3wincmd ><cr>
@@ -171,7 +176,10 @@ nnoremap <silent><leader>bb  :Buffers<cr>
 nnoremap <silent><leader>bp  :bprev<cr>
 nnoremap <silent><leader>bn  :bnext<cr>
 nnoremap <silent><leader>bt :BTags<cr>
+nnoremap AA :Tags<cr>
+nnoremap aa :Ag<cr>
 nnoremap zz :Buffers<cr>
+nnoremap ZZ :Windows<cr>
 
 nnoremap <silent><leader>` : nohlsearch<cr>
 
@@ -182,6 +190,8 @@ nnoremap <silent><tab> :e#<cr>
 
 nnoremap <silent><leader>s :w<cr>
 nnoremap <silent><leader>q :q<cr>
+
+nnoremap <silent><C-b> :YcmCompleter GoToDefinition<cr>
 
 nnoremap <silent><leader>mm          : e $MYVIMRC<CR>
 
@@ -197,7 +207,8 @@ xnoremap    < <gv
 xnoremap    > >gv
 
 
-nnoremap <silent>`        : call NERDTreeToggleInCurDir()<CR>
+nnoremap <silent>`        :NERDTreeToggle<CR>
+"nnoremap <silent>`        : call NERDTreeToggleInCurDir()<CR>
 
 "----------ESCAPE-ALTERNATIVE------"{{{1}
 nmap Q    @q
